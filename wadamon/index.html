@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Restaurante Wadamon · Reservas · Poço da Panela, Recife</title>
+<meta name="description" content="Legítima culinária japonesa no Poço da Panela, Recife. Terça a domingo, 11h às 22h. Reserve sua mesa com confirmação no WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --washi:#F5EFE3;
+    --washi-2:#ECE3D1;
+    --card:#FFFDF8;
+    --sumi:#1C1A17;
+    --sumi-2:#46423B;
+    --mute:#7B736A;
+    --shu:#B4282D;
+    --shu-2:#8C1E23;
+    --wood:#3B281C;
+    --amber:#DFB04A;
+    --ai:#2F4B72;
+    --ok:#2E6B45;
+    --line:rgba(28,26,23,.14);
+    --serif:"Shippori Mincho","Noto Serif JP","Yu Mincho","Hiragino Mincho ProN",Georgia,"Times New Roman",serif;
+    --sans:"Zen Kaku Gothic New","Noto Sans JP","Hiragino Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--sans);
+    color:var(--sumi);
+    background:var(--washi);
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(223,176,74,.12), transparent 55%),
+      radial-gradient(ellipse at 100% 100%, rgba(180,40,45,.06), transparent 50%);
+    line-height:1.55;
+    font-size:16px;
+  }
+  img,svg{max-width:100%;display:block}
+  a{color:var(--ai)}
+  .wrap{width:100%;max-width:760px;margin:0 auto;padding:0 20px}
+
+  /* noren: a faixa vermelha do topo */
+  .noren{height:6px;background:var(--shu);background-image:repeating-linear-gradient(90deg,var(--shu) 0 56px,var(--shu-2) 56px 60px)}
+
+  header.top{
+    position:sticky;top:0;z-index:20;
+    background:rgba(245,239,227,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--sumi)}
+  .hanko{
+    width:38px;height:38px;flex:none;
+    background:var(--shu);color:#fff;border-radius:5px;
+    font-family:var(--serif);font-weight:700;font-size:11px;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    writing-mode:vertical-rl;letter-spacing:.05em;
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.35);
+  }
+  .brand b{font-family:var(--serif);font-weight:700;font-size:1.05rem;letter-spacing:.06em;display:block;line-height:1.1}
+  .brand small{display:block;color:var(--mute);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:var(--sans);font-weight:700;font-size:.95rem;
+    padding:12px 18px;border-radius:6px;border:1.5px solid transparent;
+    cursor:pointer;text-decoration:none;transition:transform .08s ease,background .15s ease;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-shu{background:var(--shu);color:#fff}
+  .btn-shu:hover{background:var(--shu-2)}
+  .btn-ghost{background:transparent;color:var(--sumi);border-color:var(--sumi)}
+  .btn-ghost:hover{background:rgba(28,26,23,.06)}
+  .btn-sm{padding:9px 14px;font-size:.85rem;white-space:nowrap}
+  @media (max-width:430px){.brand small{display:none}}
+
+  /* hero */
+  .hero{padding:44px 0 36px;position:relative;overflow:hidden}
+  .hero .kanji{
+    font-family:var(--serif);font-weight:800;color:var(--shu);
+    font-size:3.4rem;line-height:1;letter-spacing:.12em;margin-bottom:18px;
+  }
+  .hero h1{
+    font-family:var(--serif);font-weight:700;
+    font-size:clamp(1.9rem,6vw,2.8rem);line-height:1.15;letter-spacing:.01em;
+    max-width:14ch;
+  }
+  .hero p.lead{margin-top:14px;font-size:1.05rem;color:var(--sumi-2);max-width:44ch}
+  .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .fact{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--card);border:1px solid var(--line);border-radius:999px;
+    padding:8px 14px;font-size:.9rem;font-weight:500;
+  }
+  .fact i{width:8px;height:8px;border-radius:50%;background:var(--shu);flex:none}
+  .fact.amber i{background:var(--amber)}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .hero .tate{
+    display:none;
+  }
+  @media (min-width:720px){
+    .hero{padding:64px 0 52px}
+    .hero .wrap{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start}
+    .hero .kanji{display:none}
+    .hero .tate{
+      display:block;font-family:var(--serif);font-weight:800;color:var(--shu);
+      writing-mode:vertical-rl;font-size:5.2rem;line-height:1;letter-spacing:.18em;
+      padding-top:6px;opacity:.95;
+    }
+  }
+
+  /* seções */
+  section{padding:38px 0}
+  section + section{border-top:1px solid var(--line)}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--shu);font-weight:700;
+    margin-bottom:10px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--shu)}
+  h2{font-family:var(--serif);font-weight:700;font-size:1.65rem;line-height:1.2;margin-bottom:8px}
+  .sub{color:var(--sumi-2);max-width:56ch}
+
+  .steps{display:grid;gap:12px;margin-top:22px}
+  .step{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;
+    display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
+  }
+  .step .n{
+    font-family:var(--serif);font-weight:800;color:var(--shu);font-size:1.5rem;line-height:1;
+    width:36px;height:36px;border:1.5px solid var(--shu);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;padding-top:2px;
+  }
+  .step b{display:block;font-weight:700;margin-bottom:2px}
+  .step span{color:var(--sumi-2);font-size:.95rem}
+  @media (min-width:720px){.steps{grid-template-columns:repeat(3,1fr)}}
+
+  /* formulário */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;box-shadow:0 8px 30px rgba(59,40,28,.06)}
+  form{display:grid;gap:14px;margin-top:20px}
+  .row{display:grid;gap:14px}
+  @media (min-width:560px){.row{grid-template-columns:1fr 1fr}}
+  label{display:block;font-weight:700;font-size:.88rem;margin-bottom:6px}
+  label small{font-weight:400;color:var(--mute)}
+  input,select,textarea{
+    width:100%;font:inherit;color:var(--sumi);
+    background:#fff;border:1.5px solid rgba(28,26,23,.22);border-radius:8px;
+    padding:12px 12px;min-height:46px;
+  }
+  textarea{min-height:82px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--shu);box-shadow:0 0 0 3px rgba(180,40,45,.15)}
+  .hint{font-size:.82rem;color:var(--mute);margin-top:6px}
+  .err{
+    display:none;background:#FBEBEC;border:1px solid rgba(180,40,45,.35);color:var(--shu-2);
+    border-radius:8px;padding:10px 12px;font-size:.9rem;
+  }
+  .err.show{display:block}
+  .form-foot{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:4px}
+  .form-foot .hint{margin:0}
+
+  /* confirmação */
+  .confirm{display:none}
+  .confirm.show{display:block}
+  .confirm .stamp{
+    display:inline-flex;align-items:center;gap:10px;
+    color:var(--ok);font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;
+  }
+  .confirm .stamp i{width:10px;height:10px;border-radius:50%;background:var(--ok)}
+  .confirm h3{font-family:var(--serif);font-size:1.5rem;margin:8px 0 14px}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:.95rem}
+  .kv dt{color:var(--mute)}
+  .kv dd{font-weight:500}
+  .code{
+    font-family:var(--serif);font-weight:800;font-size:1.35rem;letter-spacing:.1em;color:var(--shu);
+    border:1.5px dashed var(--shu);border-radius:8px;padding:10px 14px;display:inline-block;margin:14px 0;
+  }
+  .msg{
+    background:var(--washi-2);border-left:4px solid var(--amber);border-radius:0 8px 8px 0;
+    padding:12px 14px;font-size:.92rem;white-space:pre-line;color:var(--sumi-2);
+  }
+  .msg b{display:block;color:var(--sumi);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+  .confirm .cta{margin-top:18px}
+
+  /* lista da casa */
+  .house{display:none;margin-top:22px}
+  .house.show{display:block}
+  .house-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+  .house-head h3{font-family:var(--serif);font-size:1.25rem}
+  .badge{display:inline-block;background:var(--wood);color:#fff;border-radius:999px;padding:2px 10px;font-size:.78rem;font-weight:700;margin-left:6px}
+  .day{margin-top:14px}
+  .day h4{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding-bottom:6px;border-bottom:1px solid var(--line);margin-bottom:6px}
+  .res{
+    display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;align-items:center;
+    padding:10px 0;border-bottom:1px dashed var(--line);font-size:.93rem;
+  }
+  .res .t{font-family:var(--serif);font-weight:800;font-size:1.05rem;color:var(--shu);min-width:52px}
+  .res .who b{display:block}
+  .res .who span{color:var(--mute);font-size:.85rem}
+  .res .pp{font-weight:700;white-space:nowrap}
+  .res .pp small{display:block;color:var(--mute);font-weight:400;font-size:.75rem;text-align:right}
+  .empty{color:var(--mute);font-size:.92rem;padding:14px 0}
+  .demo-note{font-size:.8rem;color:var(--mute);margin-top:12px}
+
+  /* cardápio */
+  .menu{display:grid;gap:18px;margin-top:20px}
+  @media (min-width:720px){.menu{grid-template-columns:1fr 1fr}}
+  .group h3{
+    font-family:var(--serif);font-size:1.1rem;color:var(--wood);
+    padding-bottom:6px;border-bottom:2px solid var(--wood);margin-bottom:8px;
+    display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  }
+  .group h3 span{font-family:var(--sans);font-weight:400;font-size:.75rem;color:var(--mute);letter-spacing:.08em;text-transform:uppercase}
+  .group ul{list-style:none}
+  .group li{padding:8px 0;border-bottom:1px dotted var(--line);display:flex;justify-content:space-between;gap:12px}
+  .group li:last-child{border-bottom:0}
+  .group li em{font-style:normal;color:var(--mute);font-size:.82rem;white-space:nowrap}
+  .note{
+    margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;font-size:.92rem;color:var(--sumi-2);
+  }
+  .note b{color:var(--sumi)}
+
+  /* a casa */
+  .quotes{display:grid;gap:12px;margin-top:20px}
+  @media (min-width:720px){.quotes{grid-template-columns:1fr 1fr}}
+  blockquote{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+    font-family:var(--serif);font-size:1rem;line-height:1.5;color:var(--sumi-2);
+  }
+  blockquote::before{content:"“";font-size:2rem;color:var(--shu);line-height:0;vertical-align:-.35em;margin-right:4px}
+  blockquote footer{font-family:var(--sans);font-size:.78rem;color:var(--mute);margin-top:10px;letter-spacing:.04em}
+  .score{display:flex;align-items:baseline;gap:10px;margin-top:18px}
+  .score b{font-family:var(--serif);font-size:2.4rem;color:var(--shu);line-height:1}
+  .score span{color:var(--sumi-2);font-size:.9rem}
+
+  /* contato */
+  .contact{display:grid;gap:16px;margin-top:20px}
+  @media (min-width:720px){.contact{grid-template-columns:1.1fr .9fr}}
+  .hours{width:100%;border-collapse:collapse;font-size:.95rem}
+  .hours td{padding:9px 0;border-bottom:1px dotted var(--line)}
+  .hours td:last-child{text-align:right;font-weight:700}
+  .hours tr.closed td{color:var(--mute)}
+  .hours tr.closed td:last-child{color:var(--shu);font-weight:700}
+  .addr{font-size:1.02rem;line-height:1.5}
+  .addr b{font-family:var(--serif);font-size:1.15rem;display:block;margin-bottom:4px}
+  .phones{list-style:none;margin-top:14px;display:grid;gap:8px}
+  .phones a{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    text-decoration:none;color:var(--sumi);background:var(--card);border:1px solid var(--line);
+    border-radius:8px;padding:11px 14px;font-weight:500;
+  }
+  .phones a span{font-size:.78rem;color:var(--mute);letter-spacing:.06em;text-transform:uppercase}
+  .phones a:hover{border-color:var(--shu)}
+
+  footer.site{
+    margin-top:30px;padding:26px 0 40px;border-top:1px solid var(--line);
+    color:var(--mute);font-size:.85rem;
+  }
+  footer.site .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;align-items:center}
+  footer.site .demo{font-size:.78rem;letter-spacing:.02em}
+  .sr{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+
+<div class="noren" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#topo" aria-label="Restaurante Wadamon">
+      <span class="hanko" aria-hidden="true">和田門</span>
+      <span><b>Wadamon</b><small>Legítima culinária japonesa</small></span>
+    </a>
+    <a class="btn btn-shu btn-sm" href="#reservar">Reservar mesa</a>
+  </div>
+</header>
+
+<main id="topo">
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="kanji" aria-hidden="true">和田門</div>
+        <h1>Legítima culinária japonesa, no Poço da Panela.</h1>
+        <p class="lead">Mais de 50 anos de experiência no Japão e no Brasil. Cada peça preparada na hora, sem rodízio, do jeito que a tradição manda.</p>
+        <div class="facts" aria-label="Informações rápidas">
+          <span class="fact"><i></i>Terça a domingo, 11h às 22h</span>
+          <span class="fact amber"><i></i>Rua Oliveira Góes, 250</span>
+          <span class="fact"><i></i>Segunda fechado</span>
+        </div>
+        <div class="cta">
+          <a class="btn btn-shu" href="#reservar">Reservar mesa</a>
+          <a class="btn btn-ghost" href="#cardapio">Ver o cardápio</a>
+        </div>
+      </div>
+      <div class="tate" aria-hidden="true">和田門</div>
+    </div>
+  </section>
+
+  <section id="como">
+    <div class="wrap">
+      <div class="eyebrow">Como funciona</div>
+      <h2>Reserva em um minuto, confirmada no seu WhatsApp.</h2>
+      <p class="sub">Sem ligar, sem esperar resposta. Você escolhe, a casa recebe e a mesa fica separada.</p>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><b>Escolha dia, hora e pessoas</b><span>Os horários mostrados são os da casa. Segunda não abre.</span></div></div>
+        <div class="step"><div class="n">2</div><div><b>Receba a confirmação</b><span>Um código e o resumo chegam no seu WhatsApp na hora.</span></div></div>
+        <div class="step"><div class="n">3</div><div><b>Chegue e sente</b><span>A casa já sabe quantos vêm e para que horas.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reservar">
+    <div class="wrap">
+      <div class="eyebrow">Reserva</div>
+      <h2>Reserve sua mesa</h2>
+      <p class="sub">Terça a domingo, das 11h às 22h. Para grupos maiores, escreva no campo de observação.</p>
+
+      <div class="card">
+        <form id="form" novalidate>
+          <div class="row">
+            <div>
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como devemos chamar você" required>
+            </div>
+            <div>
+              <label for="zap">WhatsApp</label>
+              <input id="zap" name="zap" type="tel" inputmode="tel" autocomplete="tel" placeholder="(81) 9 0000-0000" required>
+              <div class="hint">A confirmação vai para este número.</div>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="data">Data</label>
+              <input id="data" name="data" type="date" required>
+              <div class="hint" id="data-hint">Terça a domingo.</div>
+            </div>
+            <div>
+              <label for="hora">Horário</label>
+              <select id="hora" name="hora" required></select>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="pessoas">Pessoas</label>
+              <select id="pessoas" name="pessoas" required></select>
+            </div>
+            <div>
+              <label for="obs">Observação <small>(opcional)</small></label>
+              <textarea id="obs" name="obs" placeholder="Aniversário, restrição alimentar, grupo grande, cadeirinha..."></textarea>
+            </div>
+          </div>
+          <div class="err" id="err" role="alert"></div>
+          <div class="form-foot">
+            <button class="btn btn-shu" type="submit">Confirmar reserva</button>
+            <div class="hint">Sem cobrança. Cancelar é responder a mensagem.</div>
+          </div>
+        </form>
+
+        <div class="confirm" id="confirm" aria-live="polite">
+          <div class="stamp"><i></i>Reserva confirmada</div>
+          <h3 id="c-title">Até logo.</h3>
+          <dl class="kv">
+            <dt>Quando</dt><dd id="c-quando"></dd>
+            <dt>Mesa para</dt><dd id="c-pessoas"></dd>
+            <dt>Nome</dt><dd id="c-nome"></dd>
+            <dt>WhatsApp</dt><dd id="c-zap"></dd>
+            <dt>Observação</dt><dd id="c-obs"></dd>
+          </dl>
+          <div class="code" id="c-code"></div>
+          <div class="msg"><b>Mensagem que chega no seu WhatsApp</b><span id="c-msg"></span></div>
+          <div class="cta">
+            <button class="btn btn-ghost" type="button" id="btn-nova">Fazer outra reserva</button>
+            <button class="btn btn-shu" type="button" id="btn-casa">Ver como a casa vê</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="house" id="house">
+        <div class="card">
+          <div class="house-head">
+            <h3>Lista da casa <span class="badge" id="house-count">0</span></h3>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-ghost btn-sm" type="button" id="btn-fechar">Fechar</button>
+              <button class="btn btn-ghost btn-sm" type="button" id="btn-limpar">Limpar demonstração</button>
+            </div>
+          </div>
+          <p class="sub" style="font-size:.92rem">O que a cozinha e o salão veem antes de abrir: quem vem, a que horas, quantos, e o que pediram de observação. Ninguém precisou atender o telefone.</p>
+          <div id="house-list"></div>
+          <p class="demo-note">Demonstração: as reservas ficam guardadas só neste navegador. Na versão real, a casa acessa a lista de qualquer celular e recebe aviso a cada reserva nova.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cardapio">
+    <div class="wrap">
+      <div class="eyebrow">Cardápio</div>
+      <h2>Uma seleção do que a casa serve</h2>
+      <p class="sub">Receitas originais do mestre Wada. O cardápio completo e os valores, na casa.</p>
+      <div class="menu">
+        <div class="group">
+          <h3>Entradas e pratos quentes</h3>
+          <ul>
+            <li>Usukuri <em>a entrada recomendada</em></li>
+            <li>Sousu Yakiudon</li>
+            <li>Lámen <em>às terças</em></li>
+          </ul>
+        </div>
+        <div class="group">
+          <h3>Combinados <span>sem rodízio</span></h3>
+          <ul>
+            <li>Combinado Wadamon</li>
+            <li>Uramaki Wadamon</li>
+          </ul>
+        </div>
+        <div class="group">
+          <h3>Niguiri e sushi de salmão</h3>
+          <ul>
+            <li>Salmão Aburi</li>
+            <li>Salmão Kizushi Especial</li>
+            <li>Salmão Toro Hiper</li>
+            <li>Salmão Exótico</li>
+            <li>Salmão Zuke</li>
+          </ul>
+        </div>
+        <div class="group">
+          <h3>Receitas do mestre</h3>
+          <ul>
+            <li>Ume Tokujiyou Niguiri <em>receita original</em></li>
+            <li>Maguro Zuke <em>atum</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="note"><b>Aqui não tem pressa.</b> A equipe é pequena e cada prato é preparado na hora pelo mestre. Vale a espera.</div>
+    </div>
+  </section>
+
+  <section id="casa">
+    <div class="wrap">
+      <div class="eyebrow">A casa</div>
+      <h2>O mestre apresenta os pratos e ensina como comer.</h2>
+      <p class="sub">Um restaurante simples e acolhedor, com um chef formado no Japão. Quem vem pela primeira vez sai sabendo a ordem, o molho e o gesto certo de cada peça.</p>
+      <div class="quotes">
+        <blockquote>Comida japonesa legítima. Para quem gosta de culinária japonesa, é preciso conhecer. Recomendo o usukuri e o combinado Wadamon.<footer>Avaliação no Google</footer></blockquote>
+        <blockquote>O mestre apresenta os pratos pessoalmente e ensina como desfrutar de acordo com as tradições nipônicas. Venham sem pressa.<footer>Avaliação no TripAdvisor</footer></blockquote>
+      </div>
+      <div class="score"><b>4,8</b><span>de 5 no Google, com mais de 180 avaliações</span></div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="wrap">
+      <div class="eyebrow">Onde e quando</div>
+      <h2>Como chegar</h2>
+      <div class="contact">
+        <div>
+          <p class="addr"><b>Restaurante Wadamon</b>Rua Oliveira Góes, 250<br>Poço da Panela, Recife, PE<br>CEP 52061-340</p>
+          <ul class="phones">
+            <li><a href="https://wa.me/5581996494266" target="_blank" rel="noopener">(81) 99649-4266 <span>WhatsApp e reservas</span></a></li>
+            <li><a href="https://wa.me/5581999966687" target="_blank" rel="noopener">(81) 99996-6687 <span>WhatsApp e reservas</span></a></li>
+            <li><a href="tel:+558130333301">(81) 3033-3301 <span>Telefone</span></a></li>
+            <li><a href="https://www.instagram.com/restaurantewadamon/" target="_blank" rel="noopener">@restaurantewadamon <span>Instagram</span></a></li>
+          </ul>
+        </div>
+        <div>
+          <table class="hours" aria-label="Horário de funcionamento">
+            <tbody>
+              <tr class="closed"><td>Segunda</td><td>Fechado</td></tr>
+              <tr><td>Terça</td><td>11h às 22h</td></tr>
+              <tr><td>Quarta</td><td>11h às 22h</td></tr>
+              <tr><td>Quinta</td><td>11h às 22h</td></tr>
+              <tr><td>Sexta</td><td>11h às 22h</td></tr>
+              <tr><td>Sábado</td><td>11h às 22h</td></tr>
+              <tr><td>Domingo</td><td>11h às 22h</td></tr>
+            </tbody>
+          </table>
+          <div class="cta"><a class="btn btn-shu" href="#reservar">Reservar mesa</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>Restaurante Wadamon · Poço da Panela, Recife</span>
+    <span class="demo">demonstração feita por Gabriel Neri · não é o site oficial</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KEY = 'wadamon-demo-reservas';
+  var form = document.getElementById('form');
+  var err = document.getElementById('err');
+  var confirmBox = document.getElementById('confirm');
+  var house = document.getElementById('house');
+  var dataEl = document.getElementById('data');
+  var horaEl = document.getElementById('hora');
+  var pessoasEl = document.getElementById('pessoas');
+
+  // horários da casa: 11h às 22h, último assento 21h30
+  for (var h = 11; h <= 21; h++) {
+    ['00','30'].forEach(function(m){
+      var v = (h < 10 ? '0' + h : h) + ':' + m;
+      var o = document.createElement('option');
+      o.value = v; o.textContent = v.replace(':', 'h');
+      horaEl.appendChild(o);
+    });
+  }
+  horaEl.value = '19:30';
+
+  for (var p = 1; p <= 12; p++) {
+    var op = document.createElement('option');
+    op.value = p; op.textContent = p + (p === 1 ? ' pessoa' : ' pessoas');
+    pessoasEl.appendChild(op);
+  }
+  pessoasEl.value = '2';
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function today(){ var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()); }
+  function parseDate(s){ var p = s.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+  dataEl.min = today();
+
+  // data padrão: hoje, ou terça se hoje for segunda
+  (function(){
+    var d = new Date();
+    if (d.getDay() === 1) d.setDate(d.getDate() + 1);
+    dataEl.value = d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+  })();
+
+  dataEl.addEventListener('change', function(){
+    if (!dataEl.value) return;
+    var hint = document.getElementById('data-hint');
+    if (parseDate(dataEl.value).getDay() === 1) {
+      hint.textContent = 'A casa não abre às segundas. Escolha outro dia.';
+      hint.style.color = '#8C1E23';
+    } else {
+      hint.textContent = 'Terça a domingo.';
+      hint.style.color = '';
+    }
+  });
+
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e){ return []; } }
+  function save(list){ try { localStorage.setItem(KEY, JSON.stringify(list)); } catch(e){} }
+
+  function code(d){
+    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', s = '';
+    for (var i = 0; i < 4; i++) s += chars.charAt(Math.floor(Math.random() * chars.length));
+    return 'WD-' + pad(d.getMonth()+1) + pad(d.getDate()) + '-' + s;
+  }
+
+  function fmtLong(d){
+    var s = d.toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' });
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+  function fmtShort(d){
+    var s = d.toLocaleDateString('pt-BR', { weekday:'short', day:'2-digit', month:'2-digit' });
+    return s.replace('.', '');
+  }
+  function fmtHora(h){ return h.replace(':', 'h'); }
+
+  function showErr(msg){ err.textContent = msg; err.classList.add('show'); }
+  function clearErr(){ err.textContent = ''; err.classList.remove('show'); }
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    clearErr();
+    var nome = form.nome.value.trim();
+    var zap = form.zap.value.trim();
+    var data = form.data.value;
+    var hora = form.hora.value;
+    var pessoas = parseInt(form.pessoas.value, 10);
+    var obs = form.obs.value.trim();
+
+    if (!nome) return showErr('Diga seu nome para a casa saber quem chega.');
+    if (zap.replace(/\D/g,'').length < 10) return showErr('Confira o WhatsApp: precisa do DDD e do número completo.');
+    if (!data) return showErr('Escolha a data da reserva.');
+    var d = parseDate(data);
+    if (d.getDay() === 1) return showErr('A casa não abre às segundas. Escolha de terça a domingo.');
+    if (data < today()) return showErr('Essa data já passou.');
+
+    var r = { code: code(d), nome: nome, zap: zap, data: data, hora: hora, pessoas: pessoas, obs: obs, em: new Date().toISOString() };
+    var list = load(); list.push(r); save(list);
+
+    var quando = fmtLong(d) + ', às ' + fmtHora(hora);
+    document.getElementById('c-title').textContent = 'Até ' + fmtLong(d).split(',')[0].toLowerCase() + ', ' + nome.split(' ')[0] + '.';
+    document.getElementById('c-quando').textContent = quando;
+    document.getElementById('c-pessoas').textContent = pessoas + (pessoas === 1 ? ' pessoa' : ' pessoas');
+    document.getElementById('c-nome').textContent = nome;
+    document.getElementById('c-zap').textContent = zap;
+    document.getElementById('c-obs').textContent = obs || 'nenhuma';
+    document.getElementById('c-code').textContent = r.code;
+    document.getElementById('c-msg').textContent =
+      'Wadamon: reserva confirmada.\n' +
+      quando + ', mesa para ' + pessoas + '.\n' +
+      'Código ' + r.code + '.\n' +
+      'Rua Oliveira Góes, 250, Poço da Panela.\n' +
+      'Se precisar mudar ou cancelar, é só responder esta mensagem.';
+
+    form.style.display = 'none';
+    confirmBox.classList.add('show');
+    renderHouse();
+    confirmBox.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+
+  document.getElementById('btn-nova').addEventListener('click', function(){
+    form.reset();
+    horaEl.value = '19:30'; pessoasEl.value = '2';
+    var d = new Date(); if (d.getDay() === 1) d.setDate(d.getDate()+1);
+    dataEl.value = d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+    confirmBox.classList.remove('show');
+    form.style.display = '';
+    form.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+
+  document.getElementById('btn-casa').addEventListener('click', function(){
+    house.classList.add('show'); renderHouse();
+    house.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+  document.getElementById('btn-fechar').addEventListener('click', function(){ house.classList.remove('show'); });
+  document.getElementById('btn-limpar').addEventListener('click', function(){ save([]); renderHouse(); });
+
+  function renderHouse(){
+    var list = load().slice().sort(function(a,b){ return (a.data + a.hora) < (b.data + b.hora) ? -1 : 1; });
+    document.getElementById('house-count').textContent = list.length;
+    var out = document.getElementById('house-list');
+    out.innerHTML = '';
+    if (!list.length) { out.innerHTML = '<p class="empty">Nenhuma reserva ainda. Faça uma acima para ver como aparece aqui.</p>'; return; }
+    var byDay = {};
+    list.forEach(function(r){ (byDay[r.data] = byDay[r.data] || []).push(r); });
+    Object.keys(byDay).sort().forEach(function(day){
+      var d = parseDate(day);
+      var total = byDay[day].reduce(function(s,r){ return s + r.pessoas; }, 0);
+      var wrap = document.createElement('div'); wrap.className = 'day';
+      var h4 = document.createElement('h4'); h4.textContent = fmtLong(d) + ' · ' + byDay[day].length + (byDay[day].length === 1 ? ' reserva' : ' reservas') + ' · ' + total + ' lugares';
+      wrap.appendChild(h4);
+      byDay[day].forEach(function(r){
+        var row = document.createElement('div'); row.className = 'res';
+        var t = document.createElement('div'); t.className = 't'; t.textContent = fmtHora(r.hora);
+        var who = document.createElement('div'); who.className = 'who';
+        var b = document.createElement('b'); b.textContent = r.nome;
+        var s = document.createElement('span'); s.textContent = r.zap + (r.obs ? ' · ' + r.obs : '');
+        who.appendChild(b); who.appendChild(s);
+        var pp = document.createElement('div'); pp.className = 'pp'; pp.textContent = r.pessoas + (r.pessoas === 1 ? ' pessoa' : ' pessoas');
+        var sm = document.createElement('small'); sm.textContent = r.code; pp.appendChild(sm);
+        row.appendChild(t); row.appendChild(who); row.appendChild(pp);
+        wrap.appendChild(row);
+      });
+      out.appendChild(wrap);
+    });
+  }
+  renderHouse();
+})();
+</script>
+</body>
+</html>

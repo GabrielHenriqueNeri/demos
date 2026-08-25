@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Burgogui · Restaurante Coreano · Casa Forte, Recife</title>
+<meta name="description" content="Churrasco coreano feito na sua mesa, em Casa Forte, Recife, desde 2002. Reserve sua mesa pelo WhatsApp em 30 segundos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,900;1,700;1,900&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#d92c2f; --red-deep:#bc1e20; --wine:#6c0101; --wine-deep:#4a0000;
+    --blue:#235da9; --blue-deep:#1b4a87;
+    --paper:#f7f2ea; --paper-2:#efe6d8; --line:#e2d7c6;
+    --ink:#1c1917; --ink-soft:#5b544c; --ink-mute:#8a8178;
+    --gold:#d6ae62; --white:#ffffff;
+    --wa:#25d366;
+    --radius:18px; --radius-s:12px;
+    --font-display:"Archivo","Instrument Sans",system-ui,sans-serif;
+    --font-body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --font-kr:"Nanum Myeongjo","Apple SD Gothic Neo","Malgun Gothic",serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:var(--font-body);color:var(--ink);background:var(--paper);line-height:1.55;font-size:16px;padding-bottom:84px}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  button,input,select,textarea{font:inherit;color:inherit}
+  .wrap{width:min(100% - 32px,1040px);margin-inline:auto}
+  .kr{font-family:var(--font-kr);font-weight:700;letter-spacing:.04em}
+  .eyebrow{font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+  h1,h2,h3{font-family:var(--font-display);line-height:1.08;letter-spacing:-.01em}
+  h2{font-size:clamp(28px,5vw,40px);font-weight:900}
+  h3{font-size:18px;font-weight:700}
+  .sub{color:var(--ink-soft);max-width:60ch;margin-top:10px;font-size:17px}
+  section{padding:56px 0}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;border-radius:999px;padding:14px 22px;font-family:var(--font-display);font-weight:700;font-size:15px;text-decoration:none;transition:transform .12s ease,background .15s ease,box-shadow .15s ease;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-red{background:var(--red);color:var(--white);box-shadow:0 8px 24px rgba(217,44,47,.28)}
+  .btn-red:hover{background:var(--red-deep)}
+  .btn-ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.55)}
+  .btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+  .btn-wa{background:var(--wa);color:#073b1b;box-shadow:0 8px 24px rgba(37,211,102,.28)}
+  .btn-wa:hover{background:#1fc45a}
+  .btn-line{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+  .btn-line:hover{border-color:var(--ink)}
+
+  /* taegeuk marker: red on top, blue below, S-curve */
+  .tg{position:relative;display:inline-block;width:22px;height:22px;border-radius:50%;overflow:hidden;background:linear-gradient(180deg,var(--red) 50%,var(--blue) 50%);transform:rotate(-25deg);flex:none;vertical-align:middle}
+  .tg::before,.tg::after{content:"";position:absolute;top:25%;width:50%;height:50%;border-radius:50%}
+  .tg::before{left:0;background:var(--red)}
+  .tg::after{right:0;background:var(--blue)}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .sec-head .eyebrow{color:var(--red-deep)}
+
+  /* top bar */
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(108,1,1,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--white);border-bottom:1px solid rgba(255,255,255,.08)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand img{width:40px;height:40px;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+  .brand b{font-family:var(--font-display);font-style:italic;font-weight:900;font-size:19px;letter-spacing:-.01em}
+  .brand small{display:block;font-size:11px;opacity:.75;letter-spacing:.08em;text-transform:uppercase;font-weight:600;font-style:normal;line-height:1}
+  .nav{display:none;gap:22px;font-size:14px;font-weight:600}
+  .nav a{text-decoration:none;opacity:.85}
+  .nav a:hover{opacity:1}
+  .topbar .btn{padding:10px 16px;font-size:14px}
+
+  /* hero */
+  .hero{background:radial-gradient(120% 90% at 85% 10%,#a31417 0%,var(--wine) 45%,var(--wine-deep) 100%);color:var(--white);padding:52px 0 44px;position:relative;overflow:hidden}
+  .hero .kr-bg{position:absolute;right:-8px;top:-18px;font-size:clamp(150px,34vw,300px);line-height:1;color:rgba(255,255,255,.055);font-family:var(--font-kr);writing-mode:vertical-rl;pointer-events:none;user-select:none}
+  .hero .wrap{position:relative}
+  .hero .eyebrow{color:var(--gold)}
+  .hero h1{font-size:clamp(38px,8.5vw,72px);font-weight:900;margin:14px 0 16px;max-width:12ch}
+  .hero h1 em{font-style:italic;color:#ffd0c9}
+  .hero p.lead{font-size:clamp(17px,2.4vw,20px);max-width:52ch;color:rgba(255,255,255,.86)}
+  .hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .hours{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+  .hours span{font-size:13px;font-weight:600;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14)}
+  .hours span.closed{opacity:.6}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:30px}
+  .fact{border-left:2px solid var(--gold);padding-left:12px}
+  .fact b{display:block;font-family:var(--font-display);font-size:22px;font-weight:900;line-height:1.1}
+  .fact span{font-size:12.5px;opacity:.8}
+
+  /* wave divider */
+  .wave{display:block;width:100%;height:36px;background:var(--wine-deep)}
+  .wave svg{display:block;width:100%;height:100%}
+
+  /* reserva */
+  .reserva{background:var(--paper)}
+  .grid-res{display:grid;gap:20px;margin-top:26px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 10px 30px rgba(28,25,23,.05)}
+  .field{margin-bottom:18px}
+  .field label,.field .lbl{display:block;font-weight:700;font-size:13.5px;letter-spacing:.02em;margin-bottom:8px;color:var(--ink)}
+  .field .hint{font-size:12.5px;color:var(--ink-mute);margin-top:6px}
+  .field .hint.warn{color:var(--red-deep);font-weight:600}
+  input[type=date],input[type=text],select,textarea{width:100%;border:1.5px solid var(--line);background:var(--paper);border-radius:var(--radius-s);padding:12px 14px;outline:none;transition:border .15s}
+  input:focus,select:focus,textarea:focus{border-color:var(--blue)}
+  textarea{min-height:76px;resize:vertical}
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .seg input{position:absolute;opacity:0;pointer-events:none}
+  .seg label{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:1.5px solid var(--line);border-radius:var(--radius-s);padding:12px 14px;cursor:pointer;background:var(--paper);font-weight:700;font-size:14px;margin:0;transition:all .15s}
+  .seg label small{font-weight:500;color:var(--ink-mute);font-size:12px}
+  .seg input:checked + label{border-color:var(--red);background:#fff3f2;color:var(--red-deep)}
+  .seg input:disabled + label{opacity:.45;cursor:not-allowed}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chips input{position:absolute;opacity:0;pointer-events:none}
+  .chips label{border:1.5px solid var(--line);border-radius:999px;padding:9px 14px;font-size:13.5px;font-weight:600;cursor:pointer;background:var(--paper);margin:0;transition:all .15s}
+  .chips input:checked + label{border-color:var(--blue);background:#eaf1fb;color:var(--blue-deep)}
+  .chips input:disabled + label{opacity:.45;cursor:not-allowed;text-decoration:line-through}
+  .stepper{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);overflow:hidden}
+  .stepper button{width:44px;height:44px;border:0;background:transparent;font-size:22px;cursor:pointer;color:var(--ink)}
+  .stepper button:hover{background:var(--paper-2)}
+  .stepper output{min-width:64px;text-align:center;font-family:var(--font-display);font-weight:900;font-size:18px}
+  .slots{display:flex;flex-wrap:wrap;gap:8px}
+  .slots input{position:absolute;opacity:0;pointer-events:none}
+  .slots label{border:1.5px solid var(--line);border-radius:10px;padding:9px 12px;font-family:var(--font-display);font-weight:700;font-size:14px;cursor:pointer;background:var(--paper);margin:0;min-width:64px;text-align:center}
+  .slots input:checked + label{border-color:var(--red);background:var(--red);color:var(--white)}
+  .check{display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px;cursor:pointer}
+  .check input{width:18px;height:18px;accent-color:var(--blue)}
+
+  .preview{background:var(--wine);color:var(--white);border:0;position:relative}
+  .preview .eyebrow{color:var(--gold)}
+  .preview h3{margin-top:6px;font-size:20px}
+  .bubble{margin-top:16px;background:#e7ffdb;color:#0c2a14;border-radius:14px 14px 14px 4px;padding:14px 16px;font-size:14.5px;line-height:1.5;white-space:pre-wrap;font-family:var(--font-body);box-shadow:0 6px 18px rgba(0,0,0,.18)}
+  .bubble b{font-weight:700}
+  .preview .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .preview .note{margin-top:16px;font-size:13px;color:rgba(255,255,255,.75);border-top:1px solid rgba(255,255,255,.14);padding-top:14px}
+  .preview .note b{color:var(--white)}
+  .toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--white);padding:10px 16px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:all .25s;z-index:50}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* executivo */
+  .exec{background:var(--blue);color:var(--white);position:relative;overflow:hidden}
+  .exec .eyebrow{color:#cfe0ff}
+  .exec .kr-bg{position:absolute;left:-10px;bottom:-30px;font-size:clamp(140px,30vw,260px);line-height:1;color:rgba(255,255,255,.06);font-family:var(--font-kr);pointer-events:none;user-select:none}
+  .exec .wrap{position:relative}
+  .exec-grid{display:grid;gap:18px;margin-top:26px}
+  .price{background:var(--white);color:var(--ink);border-radius:var(--radius);padding:22px;display:flex;flex-direction:column;gap:6px}
+  .price .big{font-family:var(--font-display);font-weight:900;font-size:56px;line-height:1;color:var(--blue-deep);letter-spacing:-.02em}
+  .price .big sup{font-size:22px;vertical-align:top;top:.35em;position:relative;margin-right:4px}
+  .price .when{font-weight:700;font-size:15px}
+  .price ul{list-style:none;margin-top:8px;display:grid;gap:6px;font-size:14px;color:var(--ink-soft)}
+  .price li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:10px;vertical-align:middle}
+  .menus{display:grid;gap:12px}
+  .menu{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-s);padding:16px 18px}
+  .menu b{font-family:var(--font-display);font-size:15px;display:block;margin-bottom:4px}
+  .menu p{font-size:14.5px;color:rgba(255,255,255,.88)}
+  .menu .tag{display:inline-block;margin-top:8px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.16)}
+  .exec .cta{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .exec .cta small{font-size:13px;color:rgba(255,255,255,.75)}
+
+  /* cardápio */
+  .tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;margin-top:22px;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{flex:none;border:1.5px solid var(--line);background:var(--white);border-radius:999px;padding:10px 16px;font-family:var(--font-display);font-weight:700;font-size:14px;cursor:pointer;color:var(--ink-soft)}
+  .tabs button.on{background:var(--ink);color:var(--white);border-color:var(--ink)}
+  .panel{display:none}
+  .panel.on{display:block}
+  .panel .intro{font-size:14.5px;color:var(--ink-soft);margin:6px 0 16px;max-width:64ch}
+  .items{display:grid;gap:10px}
+  .item{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-s);padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:start}
+  .item .n{font-family:var(--font-display);font-weight:700;font-size:15.5px}
+  .item .n .kr{font-weight:400;color:var(--ink-mute);font-size:13px;margin-left:6px}
+  .item .d{grid-column:1;font-size:13.5px;color:var(--ink-soft)}
+  .item .p{font-family:var(--font-display);font-weight:900;font-size:16px;color:var(--red-deep);white-space:nowrap;grid-row:1 / span 2;align-self:center;text-align:right}
+  .item .p small{display:block;font-size:11.5px;color:var(--ink-mute);font-weight:600}
+  .item .badges{grid-column:1;display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .badge{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--paper-2);color:var(--ink-soft)}
+  .badge.veg{background:#e6f4e6;color:#1f6b2f}
+  .badge.mesa{background:#fff0ee;color:var(--red-deep)}
+  .badge.lim{background:#f4efe3;color:#7a5a12}
+  .menu-foot{margin-top:16px;font-size:13px;color:var(--ink-mute)}
+
+  /* como comer */
+  .steps{display:grid;gap:12px;margin-top:18px}
+  .step{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-s);padding:16px;display:flex;gap:14px}
+  .step .num{flex:none;width:36px;height:36px;border-radius:50%;background:var(--red);color:var(--white);display:grid;place-items:center;font-family:var(--font-display);font-weight:900}
+  .step p{font-size:14.5px;color:var(--ink-soft)}
+  .step b{display:block;font-family:var(--font-display);font-size:15px;color:var(--ink);margin-bottom:2px}
+
+  /* casa */
+  .casa{background:var(--paper-2)}
+  .casa-grid{display:grid;gap:22px;margin-top:22px}
+  .story p{margin-bottom:12px;font-size:16px;color:var(--ink-soft)}
+  .story p b{color:var(--ink)}
+  .story .sig{font-family:var(--font-kr);font-size:18px;color:var(--red-deep);margin-top:8px}
+  .rating{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .rating .score{display:flex;align-items:baseline;gap:10px}
+  .rating .score b{font-family:var(--font-display);font-weight:900;font-size:44px;line-height:1;color:var(--ink)}
+  .rating .score span{font-size:13.5px;color:var(--ink-mute)}
+  .rating .stars{color:var(--gold);letter-spacing:2px;font-size:18px;margin:4px 0 12px}
+  .quote{border-left:3px solid var(--blue);padding:4px 0 4px 14px;margin-top:14px}
+  .quote p{font-size:14.5px;font-style:italic;color:var(--ink-soft)}
+  .quote small{display:block;margin-top:4px;font-size:12px;color:var(--ink-mute);font-style:normal}
+
+  /* onde */
+  .onde-grid{display:grid;gap:18px;margin-top:22px}
+  .info{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .info h3{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .info address{font-style:normal;font-size:16px;line-height:1.5}
+  .info .muted{font-size:13.5px;color:var(--ink-mute);margin-top:8px}
+  .htable{width:100%;border-collapse:collapse;font-size:15px}
+  .htable td{padding:8px 0;border-bottom:1px solid var(--line)}
+  .htable tr:last-child td{border-bottom:0}
+  .htable td:last-child{text-align:right;font-family:var(--font-display);font-weight:700}
+  .htable tr.closed td{color:var(--ink-mute)}
+  .contacts{display:grid;gap:8px;margin-top:6px}
+  .contacts a{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;padding:10px 12px;border-radius:var(--radius-s);background:var(--paper)}
+  .contacts a:hover{background:var(--paper-2)}
+  .contacts svg{width:18px;height:18px;flex:none}
+
+  /* footer */
+  footer{background:var(--wine-deep);color:rgba(255,255,255,.7);padding:28px 0 32px;font-size:13px}
+  footer .wrap{display:flex;flex-direction:column;gap:10px}
+  footer b{color:var(--white)}
+  footer .demo{color:rgba(255,255,255,.5);font-size:12px}
+
+  /* sticky mobile bar */
+  .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(247,242,234,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+  .stickybar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .stickybar .t{font-size:13px;color:var(--ink-soft);line-height:1.3}
+  .stickybar .t b{display:block;color:var(--ink);font-family:var(--font-display);font-size:14px}
+  .stickybar .btn{padding:12px 18px;font-size:14px}
+
+  @media (min-width:760px){
+    body{padding-bottom:0}
+    .stickybar{display:none}
+    .nav{display:flex}
+    section{padding:76px 0}
+    .grid-res{grid-template-columns:1.1fr .9fr;align-items:start}
+    .preview{position:sticky;top:84px}
+    .exec-grid{grid-template-columns:.8fr 1.2fr}
+    .casa-grid{grid-template-columns:1.2fr .8fr}
+    .onde-grid{grid-template-columns:1fr 1fr 1fr}
+    .steps{grid-template-columns:repeat(3,1fr)}
+    .items{grid-template-columns:1fr 1fr}
+    .hero{padding:88px 0 72px}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <img src="data:image/jpeg;base64,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" alt="Burgogui Restaurante Coreano" width="40" height="40">
+      <span><b>Burgogui</b><small>Restaurante coreano</small></span>
+    </a>
+    <nav class="nav">
+      <a href="#reserva">Reservar</a>
+      <a href="#executivo">Almoço executivo</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#casa">A casa</a>
+      <a href="#onde">Onde</a>
+    </nav>
+    <a class="btn btn-red" href="#reserva">Reservar mesa</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="kr-bg" aria-hidden="true">불고기</div>
+  <div class="wrap">
+    <div class="eyebrow">Casa Forte · Recife · desde 2002</div>
+    <h1>Churrasco coreano <em>feito na sua mesa.</em></h1>
+    <p class="lead">A primeira casa de comida coreana de Pernambuco. Receitas da família Choi, carne marinada no óleo de gergelim e grelhada na chapa diante de você.</p>
+    <div class="ctas">
+      <a class="btn btn-red" href="#reserva">Reservar mesa</a>
+      <a class="btn btn-ghost" href="#cardapio">Ver cardápio</a>
+    </div>
+    <div class="hours" aria-label="Horário de funcionamento">
+      <span>Ter a sáb · 12h às 15h</span>
+      <span>Ter a sáb · 18h às 22h</span>
+      <span>Dom · 12h às 15h</span>
+      <span class="closed">Seg · fechado</span>
+    </div>
+    <div class="facts">
+      <div class="fact"><b>2002</b><span>ano de fundação, no Espinheiro</span></div>
+      <div class="fact"><b>4,5</b><span>no TripAdvisor, 115 avaliações</span></div>
+      <div class="fact"><b>R$ 65</b><span>almoço executivo, ter a sex</span></div>
+    </div>
+  </div>
+</section>
+<div class="wave" aria-hidden="true">
+  <svg viewBox="0 0 1200 36" preserveAspectRatio="none"><path d="M0 0 C 300 40 400 -10 600 18 S 900 40 1200 6 L1200 36 L0 36 Z" fill="#f7f2ea"/><path d="M0 8 C 300 44 420 -2 600 24 S 900 44 1200 12 L1200 36 L0 36 Z" fill="#235da9" opacity=".18"/></svg>
+</div>
+
+<section class="reserva" id="reserva">
+  <div class="wrap">
+    <div class="sec-head"><span class="tg" aria-hidden="true"></span><span class="eyebrow">Reserva</span></div>
+    <h2>Reserve sua mesa em 30 segundos</h2>
+    <p class="sub">A casa é pequena e enche rápido. Escolha o dia, o turno e quantas pessoas: a mensagem chega pronta no WhatsApp do Burgogui, sempre com os mesmos dados.</p>
+
+    <div class="grid-res">
+      <form class="card" id="form" autocomplete="off" onsubmit="return false">
+        <div class="field">
+          <label for="data">Que dia?</label>
+          <input type="date" id="data" name="data">
+          <div class="hint" id="data-hint"></div>
+        </div>
+
+        <div class="field">
+          <span class="lbl">Almoço ou jantar?</span>
+          <div class="seg">
+            <input type="radio" name="turno" id="t-almoco" value="almoco" checked>
+            <label for="t-almoco">Almoço <small>12h às 15h</small></label>
+            <input type="radio" name="turno" id="t-jantar" value="jantar">
+            <label for="t-jantar">Jantar <small>18h às 22h</small></label>
+          </div>
+          <div class="hint" id="turno-hint"></div>
+        </div>
+
+        <div class="field">
+          <span class="lbl">Horário de chegada</span>
+          <div class="slots" id="slots"></div>
+        </div>
+
+        <div class="field">
+          <span class="lbl">Quantas pessoas?</span>
+          <div class="stepper">
+            <button type="button" id="menos" aria-label="menos uma pessoa">−</button>
+            <output id="pessoas">2</output>
+            <button type="button" id="mais" aria-label="mais uma pessoa">+</button>
+          </div>
+          <div class="hint">Grupo grande? Conte no campo de observação que a casa organiza as mesas.</div>
+        </div>
+
+        <div class="field">
+          <span class="lbl">O que vocês pretendem pedir?</span>
+          <div class="chips">
+            <input type="radio" name="pref" id="p-churrasco" value="churrasco na mesa" checked>
+            <label for="p-churrasco">Churrasco na mesa</label>
+            <input type="radio" name="pref" id="p-exec" value="almoço executivo">
+            <label for="p-exec">Almoço executivo</label>
+            <input type="radio" name="pref" id="p-pratos" value="pratos e entradas">
+            <label for="p-pratos">Pratos e entradas</label>
+            <input type="radio" name="pref" id="p-decidir" value="ainda vamos decidir">
+            <label for="p-decidir">Ainda vamos decidir</label>
+          </div>
+          <div class="hint" id="pref-hint">A chapa do churrasco é preparada na mesa. Avisar antes ajuda a casa a deixar tudo pronto.</div>
+        </div>
+
+        <div class="field">
+          <label class="check"><input type="checkbox" id="vegano"> Alguém na mesa prefere a opção vegana</label>
+        </div>
+
+        <div class="field">
+          <label for="nome">Seu nome</label>
+          <input type="text" id="nome" placeholder="Como devemos te chamar">
+        </div>
+
+        <div class="field">
+          <label for="obs">Observação <span style="font-weight:500;color:var(--ink-mute)">(opcional)</span></label>
+          <textarea id="obs" placeholder="Aniversário, cadeira de bebê, restrição alimentar..."></textarea>
+        </div>
+      </form>
+
+      <aside class="card preview" aria-live="polite">
+        <div class="eyebrow">Assim chega para a casa</div>
+        <h3>Sua reserva, pronta para enviar</h3>
+        <div class="bubble" id="bubble"></div>
+        <div class="actions">
+          <a class="btn btn-wa" id="enviar" href="#" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4c1.7.7 2.1.6 2.8.5.7-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
+            Enviar pelo WhatsApp
+          </a>
+          <button class="btn btn-line" type="button" id="copiar" style="color:var(--white);border-color:rgba(255,255,255,.4)">Copiar mensagem</button>
+        </div>
+        <p class="note"><b>Para quem atende:</b> toda reserva chega no mesmo formato, com data, turno, horário, pessoas e preferência. Nada para perguntar de volta, nada para anotar de novo.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="exec" id="executivo">
+  <div class="kr-bg" aria-hidden="true">점심</div>
+  <div class="wrap">
+    <div class="sec-head"><span class="tg" aria-hidden="true"></span><span class="eyebrow">Terça a sexta · 12h às 15h</span></div>
+    <h2>Almoço executivo</h2>
+    <p class="sub" style="color:rgba(255,255,255,.85)">Três menus completos que reúnem os pratos e as entradas de maior sucesso da casa. A forma mais rápida de provar a Coreia num almoço de semana.</p>
+
+    <div class="exec-grid">
+      <div class="price">
+        <div class="big"><sup>R$</sup>65</div>
+        <div class="when">por menu · terça a sexta · 12h às 15h</div>
+        <ul>
+          <li>3 opções de menu completo</li>
+          <li>3 opções de sobremesa</li>
+          <li>Opção vegana disponível</li>
+          <li>Não é servido sábado, domingo nem no jantar</li>
+        </ul>
+      </div>
+      <div class="menus">
+        <div class="menu">
+          <b>Menu 1</b>
+          <p>Guimbap, Japchae, Kimchi, Mandu e Tteokpokki.</p>
+          <span class="tag">entradas que a casa mais serve</span>
+        </div>
+        <div class="menu">
+          <b>Menu 2</b>
+          <p>Abre com Bulgogui de Carne e Japchae. Composição completa nos destaques do Instagram da casa.</p>
+        </div>
+        <div class="menu">
+          <b>Menu 3</b>
+          <p>Também na versão vegana. Composição completa nos destaques do Instagram da casa.</p>
+          <span class="tag">opção vegana</span>
+        </div>
+        <div class="menu">
+          <b>Sobremesa do mês</b>
+          <p>Três opções. Já passaram por aqui o arroz doce coreano e a verrine de morango com creme de baunilha.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cta">
+      <a class="btn btn-red" href="#reserva" data-exec="1">Reservar para o executivo</a>
+      <small>O menu muda ao longo do ano. Esta página é onde a versão do mês fica publicada.</small>
+    </div>
+  </div>
+</section>
+
+<section id="cardapio">
+  <div class="wrap">
+    <div class="sec-head"><span class="tg" aria-hidden="true"></span><span class="eyebrow">Cardápio</span></div>
+    <h2>O que vem à mesa</h2>
+    <p class="sub">Preços do cardápio oficial 2025. Os churrascos e as caldeiradas são preparados na própria mesa.</p>
+
+    <div class="tabs" role="tablist" id="tabs">
+      <button class="on" data-tab="entradas" role="tab">Entradas</button>
+      <button data-tab="churrascos" role="tab">Churrascos na mesa</button>
+      <button data-tab="pratos" role="tab">Pratos</button>
+      <button data-tab="sobremesas" role="tab">Sobremesas</button>
+      <button data-tab="extras" role="tab">Banchans e bebidas</button>
+    </div>
+
+    <div class="panel on" data-panel="entradas">
+      <p class="intro">Para começar dividindo. As entradas também são a base dos menus do almoço executivo.</p>
+      <div class="items">
+        <div class="item"><div class="n">Mandu<span class="kr">만두</span></div><div class="p">R$ 67<small>10 unidades</small></div><div class="d">Pastel frito no vapor, recheado com carne bovina e legumes. Meia porção com 6 unidades por R$ 43.</div><div class="badges"><span class="badge veg">opção vegana</span></div></div>
+        <div class="item"><div class="n">Tteokpokki com pimenta<span class="kr">떡볶이</span></div><div class="p">R$ 78<small>13 unidades</small></div><div class="d">Massa de arroz ao molho de pimenta gochujang, coberta com queijo mussarela. Porção com 7 unidades por R$ 58.</div><div class="badges"><span class="badge veg">opção vegana</span></div></div>
+        <div class="item"><div class="n">Tteokpokki sem pimenta<span class="kr">떡볶이</span></div><div class="p">R$ 78<small>13 unidades</small></div><div class="d">Massa de arroz ao molho de pasta de soja preta, coberta com mussarela. Porção com 7 unidades por R$ 58.</div><div class="badges"><span class="badge veg">opção vegana</span></div></div>
+        <div class="item"><div class="n">Guimbap<span class="kr">김밥</span></div><div class="p">R$ 82<small>16 unidades</small></div><div class="d">Enrolado de arroz em alga com carne bovina, ovo, pepino e cenoura. Acompanha kimchi e sopa de tofu. Meia porção com 8 unidades por R$ 58.</div><div class="badges"><span class="badge veg">opção vegana</span></div></div>
+        <div class="item"><div class="n">Kimchijeon<span class="kr">김치전</span></div><div class="p">R$ 38</div><div class="d">Panqueca frita de kimchi e cebolinha verde.</div></div>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="churrascos">
+      <p class="intro">Grelhados na chapa, na sua mesa. Todos acompanham banchans, arroz, sopa de tofu, folhas de alface para embrulhar e pasta de soja.</p>
+      <div class="items">
+        <div class="item"><div class="n">Burgogui de Carne<span class="kr">불고기</span></div><div class="p">R$ 190</div><div class="d">Finas fatias de contrafilé marinadas em molho especial com óleo de gergelim e especiarias. O prato que dá nome à casa.</div><div class="badges"><span class="badge mesa">preparado na mesa</span></div></div>
+        <div class="item"><div class="n">Los Gui<span class="kr">로스구이</span></div><div class="p">R$ 199</div><div class="d">Finíssimas fatias de contrafilé sem marinada, assadas na mesa. Acompanha cebolinha temperada com sal e gergelim.</div><div class="badges"><span class="badge mesa">preparado na mesa</span></div></div>
+        <div class="item"><div class="n">Samgyeopsal<span class="kr">삼겹살</span></div><div class="p">R$ 199</div><div class="d">Fatias de barriga de porco grelhadas na mesa, com molho especial de shoyu temperado.</div><div class="badges"><span class="badge mesa">preparado na mesa</span></div></div>
+        <div class="item"><div class="n">Burgogui de Shitake<span class="kr">표고버섯</span></div><div class="p">R$ 197</div><div class="d">Cogumelo shitake marinado em molho especial com gergelim, pimentões vermelhos, cebola e cebolinha.</div><div class="badges"><span class="badge mesa">preparado na mesa</span><span class="badge veg">sem carne</span></div></div>
+        <div class="item"><div class="n">Burgogui de Camarão<span class="kr">새우</span></div><div class="p">R$ 210</div><div class="d">Camarões frescos inteiros marinados em molho especial com gergelim, pimentões, cebola e cebolinha.</div><div class="badges"><span class="badge mesa">preparado na mesa</span></div></div>
+        <div class="item"><div class="n">Burgogui de Salmão<span class="kr">연어</span></div><div class="p">R$ 210</div><div class="d">Salmão fresco marinado em molho especial com gergelim, pimentões, cebola e cebolinha.</div><div class="badges"><span class="badge mesa">preparado na mesa</span><span class="badge lim">disponibilidade limitada</span></div></div>
+        <div class="item"><div class="n">Burgogui de Frango<span class="kr">닭고기</span></div><div class="p">R$ 167</div><div class="d">Fatias de frango marinadas em molho especial com gergelim e especiarias da casa.</div><div class="badges"><span class="badge mesa">preparado na mesa</span><span class="badge lim">disponibilidade limitada</span></div></div>
+        <div class="item"><div class="n">Dak Tteokbokki<span class="kr">닭떡볶이</span></div><div class="p">R$ 198</div><div class="d">Peito de frango refogado com tteokbokki apimentado e coberto com mussarela. Acompanha arroz, sopa de tofu e amendoim caramelado.</div><div class="badges"><span class="badge lim">disponibilidade limitada</span></div></div>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="pratos">
+      <p class="intro">Pratos individuais e caldeiradas para dividir.</p>
+      <div class="items">
+        <div class="item"><div class="n">Dolsot Bibimbap<span class="kr">돌솥비빔밥</span></div><div class="p">R$ 82</div><div class="d">Arroz, vegetais refogados, carne bovina, shitake e ovo na tigela de pedra quente. Acompanha gochujang, óleo de gergelim, kimchi e sopa de tofu.</div></div>
+        <div class="item"><div class="n">Japchae<span class="kr">잡채</span></div><div class="p">R$ 120</div><div class="d">Macarrão transparente de batata doce com legumes, carne bovina e shitake. Acompanha kimchi.</div><div class="badges"><span class="badge veg">opção vegana</span></div></div>
+        <div class="item"><div class="n">Jjajangmyeon<span class="kr">자장면</span></div><div class="p">R$ 82</div><div class="d">Macarrão com molho à base de soja preta, carne bovina e cebola. Acompanha kimchi.</div></div>
+        <div class="item"><div class="n">Kimchi Jjigae<span class="kr">김치찌개</span></div><div class="p">R$ 86</div><div class="d">Sopa de kimchi com tofu e barriga de porco. Acompanha arroz.</div></div>
+        <div class="item"><div class="n">Seu Thwi Gim<span class="kr">새우튀김</span></div><div class="p">R$ 197</div><div class="d">Camarões graúdos, anéis de cebola e legumes empanados em massa especial.</div></div>
+        <div class="item"><div class="n">Jeongol de carne<span class="kr">고기전골</span></div><div class="p">R$ 220</div><div class="d">Caldeirada com legumes, tofu, macarrão de batata doce e carne bovina. Acompanha banchans e arroz.</div><div class="badges"><span class="badge mesa">preparada na mesa</span></div></div>
+        <div class="item"><div class="n">Jeongol de frutos do mar<span class="kr">해물전골</span></div><div class="p">R$ 235</div><div class="d">Caldeirada com legumes, tofu, macarrão de batata doce e frutos do mar. Acompanha banchans e arroz.</div><div class="badges"><span class="badge mesa">preparada na mesa</span></div></div>
+        <div class="item"><div class="n">Mandu Guk<span class="kr">만두국</span></div><div class="p">R$ 82</div><div class="d">Sopa de mandu à base de shoyu. Acompanha arroz e kimchi.</div><div class="badges"><span class="badge lim">disponibilidade limitada</span></div></div>
+        <div class="item"><div class="n">Lámen na panelinha<span class="kr">라면</span></div><div class="p">R$ 72</div><div class="d">Lámen à moda coreana com carne bovina, tteokpokki, ovo e cebolinha. Acompanha arroz e kimchi.</div><div class="badges"><span class="badge lim">disponibilidade limitada</span></div></div>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="sobremesas">
+      <p class="intro">Cada sobremesa leva o nome de um k-drama.</p>
+      <div class="items">
+        <div class="item"><div class="n">Pretendente Surpresa<span class="kr">사내맞선</span></div><div class="p">R$ 30</div><div class="d">Choco Pie com sorvete de creme, calda de chocolate e crumble de amendoim.</div></div>
+        <div class="item"><div class="n">Sorriso Real<span class="kr">킹더랜드</span></div><div class="p">R$ 30</div><div class="d">Petit gateau de chocolate com sorvete de creme, calda de chocolate e crumble de amendoim.</div></div>
+        <div class="item"><div class="n">Pousando no Amor<span class="kr">사랑의 불시착</span></div><div class="p">R$ 29</div><div class="d">Brownie de chocolate com sorvete de creme, calda de doce de leite e crumble de amendoim.</div></div>
+        <div class="item"><div class="n">Vincenzo<span class="kr">빈센조</span></div><div class="p">R$ 29</div><div class="d">Queijadinha de colher com mousse de maracujá.</div></div>
+        <div class="item"><div class="n">Beleza Verdadeira<span class="kr">여신강림</span></div><div class="p">R$ 19</div><div class="d">Pudim de leite condensado com calda de caramelo.</div></div>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="extras">
+      <p class="intro">Banchans são os acompanhamentos servidos em pequenas porções junto ao prato principal. Os da casa: kimchi, moyashi, batata caramelada e amendoim caramelado.</p>
+      <div class="items">
+        <div class="item"><div class="n">Kimchi<span class="kr">김치</span></div><div class="p">R$ 17</div><div class="d">Acelga fermentada com temperos tradicionais coreanos.</div></div>
+        <div class="item"><div class="n">Moyashi<span class="kr">모야시</span></div><div class="p">R$ 17</div><div class="d">Broto de feijão levemente temperado, servido frio.</div></div>
+        <div class="item"><div class="n">Batata caramelada<span class="kr">감자조림</span></div><div class="p">R$ 17</div><div class="d">Batata cozida e caramelada à base de shoyu.</div></div>
+        <div class="item"><div class="n">Amendoim caramelado<span class="kr">땅콩조림</span></div><div class="p">R$ 17</div><div class="d">Porção extra.</div></div>
+        <div class="item"><div class="n">Combo 4 banchans</div><div class="p">R$ 60</div><div class="d">Os quatro acompanhamentos da casa.</div></div>
+        <div class="item"><div class="n">Sopa de tofu</div><div class="p">R$ 12</div><div class="d">Porção extra.</div></div>
+        <div class="item"><div class="n">Soju<span class="kr">소주</span></div><div class="p">R$ 78<small>garrafa</small></div><div class="d">Destilado coreano. Dose por R$ 17.</div></div>
+        <div class="item"><div class="n">Chás coreanos</div><div class="p">R$ 8</div><div class="d">Ginseng, jasmim ou arroz.</div></div>
+        <div class="item"><div class="n">Refrigerantes</div><div class="p">R$ 9</div><div class="d">Coca-Cola, Guaraná, Sprite, Fanta, Schweppes e versões zero.</div></div>
+        <div class="item"><div class="n">Heineken</div><div class="p">R$ 15</div><div class="d">Long neck.</div></div>
+      </div>
+    </div>
+    <p class="menu-foot">Valores conforme o cardápio oficial 2025 da casa. Itens com disponibilidade limitada podem não estar no dia.</p>
+
+    <h3 style="margin-top:44px;display:flex;align-items:center;gap:10px"><span class="tg" aria-hidden="true"></span>Como comer o churrasco</h3>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div><b>A folha na mão</b><p>Coloque a folha de alface na palma da mão e passe a pasta de soja.</p></div></div>
+      <div class="step"><div class="num">2</div><div><b>Arroz, carne e banchans</b><p>Adicione um pouco de arroz, a carne da chapa e os banchans da sua preferência.</p></div></div>
+      <div class="step"><div class="num">3</div><div><b>A trouxinha</b><p>Embrulhe tudo e coloque de uma só vez na boca. A equipe mostra na mesa.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="casa" id="casa">
+  <div class="wrap">
+    <div class="sec-head"><span class="tg" aria-hidden="true"></span><span class="eyebrow">A casa</span></div>
+    <h2>A Coreia à mesa no Recife, desde 2002</h2>
+    <div class="casa-grid">
+      <div class="story">
+        <p>Em <b>1965</b>, Kong Pil Choi e Soon Ja Choi desembarcaram em São Paulo. Ele veio como correspondente de um jornal de Seul; em 1970, depois de uma reportagem sobre a SUDENE, mudou-se de vez para o Recife com a missão de divulgar a cultura coreana no Brasil. Fundou corais, organizou o Festival de Cultura Coreana e levou grupos musicais do Nordeste para a Coreia.</p>
+        <p>Em <b>novembro de 2002</b>, a cozinha de dona Soon Ja virou restaurante: uma casa modesta no Espinheiro, com as receitas da infância dela. Durante a pandemia o Burgogui mudou para <b>Casa Forte</b>, onde está até hoje como a única casa de culinária coreana autêntica de Pernambuco.</p>
+        <p>Hoje a cozinha e a gestão são de <b>Helena Choi</b>, filha do casal, ao lado do marido, Ely, e do irmão, Pedro. Cada prato sai como se fosse para a própria família.</p>
+        <p class="sig">전통, 문화, 맛 · tradição, cultura e sabor à mesa</p>
+      </div>
+      <div class="rating">
+        <div class="score"><b>4,5</b><span>de 5 · 115 avaliações no TripAdvisor</span></div>
+        <div class="stars" aria-hidden="true">★★★★½</div>
+        <div style="font-size:13px;color:var(--ink-mute)">Travellers' Choice · nº 101 entre 2.119 restaurantes do Recife</div>
+        <div class="quote"><p>Este é o tipo de restaurante que não pode ter franquia, pois é único.</p><small>Luis Pessoa, Recife · TripAdvisor</small></div>
+        <div class="quote"><p>Se pedirem o prato burgogui, sigam as orientações de consumo da equipe. Elas tornam a experiência ainda mais especial e divertida.</p><small>Nathália · TripAdvisor, jan. 2025</small></div>
+        <div class="quote"><p>Lá lota bem rápido, então recomendo chegar cedo.</p><small>r/Recife · Reddit</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="onde">
+  <div class="wrap">
+    <div class="sec-head"><span class="tg" aria-hidden="true"></span><span class="eyebrow">Onde e quando</span></div>
+    <h2>Casa Forte, Recife</h2>
+    <div class="onde-grid">
+      <div class="info">
+        <h3>Endereço</h3>
+        <address>Rua Jáder de Andrade, 168<br>Casa Forte · Recife · PE<br>CEP 52061-060</address>
+        <p class="muted">Não é mais no Espinheiro: desde a pandemia a casa fica em Casa Forte.</p>
+        <div class="contacts" style="margin-top:14px">
+          <a href="https://www.google.com/maps/search/?api=1&query=Rua+J%C3%A1der+de+Andrade+168+Casa+Forte+Recife" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            Abrir rota no Google Maps
+          </a>
+        </div>
+      </div>
+      <div class="info">
+        <h3>Horário</h3>
+        <table class="htable">
+          <tr class="closed"><td>Segunda</td><td>fechado</td></tr>
+          <tr><td>Terça a sábado</td><td>12h às 15h · 18h às 22h</td></tr>
+          <tr><td>Domingo</td><td>12h às 15h</td></tr>
+          <tr><td>Almoço executivo</td><td>ter a sex · 12h às 15h</td></tr>
+        </table>
+      </div>
+      <div class="info">
+        <h3>Fale com a casa</h3>
+        <div class="contacts">
+          <a href="#reserva">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+            Reservar mesa
+          </a>
+          <a href="tel:+5581999191789">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+            (81) 99919-1789
+          </a>
+          <a href="https://www.instagram.com/restauranteburgogui/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            @restauranteburgogui
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><b>Burgogui Restaurante Coreano</b> · Rua Jáder de Andrade, 168 · Casa Forte · Recife</div>
+    <div>Terça a sábado, 12h às 15h e 18h às 22h · Domingo, 12h às 15h</div>
+    <div class="demo">demonstração feita por Gabriel Neri · não é o site oficial</div>
+  </div>
+</footer>
+
+<div class="stickybar">
+  <div class="wrap">
+    <div class="t"><b>Casa pequena, enche rápido</b>Reserve em 30 segundos</div>
+    <a class="btn btn-red" href="#reserva">Reservar mesa</a>
+  </div>
+</div>
+<div class="toast" id="toast">Mensagem copiada</div>
+
+<script>
+(function(){
+  var WA_NUMERO = '5581998591789';
+  var DIAS = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+  var TURNOS = {
+    almoco: { nome:'Almoço', slots:['12:00','12:30','13:00','13:30','14:00'] },
+    jantar: { nome:'Jantar', slots:['18:00','18:30','19:00','19:30','20:00','20:30','21:00'] }
+  };
+  var $ = function(s){ return document.querySelector(s); };
+  var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+  var elData = $('#data'), elDataHint = $('#data-hint'), elTurnoHint = $('#turno-hint'),
+      elSlots = $('#slots'), elPessoas = $('#pessoas'), elBubble = $('#bubble'),
+      elEnviar = $('#enviar'), elNome = $('#nome'), elObs = $('#obs'), elVeg = $('#vegano'),
+      elPrefHint = $('#pref-hint');
+  var pessoas = 2;
+
+  function pad(n){ return (n<10?'0':'')+n; }
+  function isoLocal(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function parseISO(s){ var p=s.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+
+  var hoje = new Date(); hoje.setHours(0,0,0,0);
+  var inicial = new Date(hoje);
+  if (inicial.getDay() === 1) inicial.setDate(inicial.getDate()+1);
+  elData.min = isoLocal(hoje);
+  elData.value = isoLocal(inicial);
+
+  function turnoSel(){ var r=$('input[name=turno]:checked'); return r ? r.value : 'almoco'; }
+  function prefSel(){ var r=$('input[name=pref]:checked'); return r ? r.value : ''; }
+
+  function renderSlots(){
+    var t = TURNOS[turnoSel()];
+    elSlots.innerHTML = '';
+    t.slots.forEach(function(h, i){
+      var id = 'slot-'+h.replace(':','');
+      var inp = document.createElement('input'); inp.type='radio'; inp.name='slot'; inp.id=id; inp.value=h; if(i===0) inp.checked=true;
+      var lab = document.createElement('label'); lab.htmlFor=id; lab.textContent=h.replace(':','h');
+      elSlots.appendChild(inp); elSlots.appendChild(lab);
+      inp.addEventListener('change', render);
+    });
+  }
+
+  function aplicarRegras(){
+    var d = elData.value ? parseISO(elData.value) : inicial;
+    var dow = d.getDay();
+    var almoco = $('#t-almoco'), jantar = $('#t-jantar'), exec = $('#p-exec');
+    almoco.disabled = false; jantar.disabled = false; exec.disabled = false;
+    elDataHint.textContent = ''; elDataHint.className='hint'; elTurnoHint.textContent=''; elTurnoHint.className='hint';
+
+    if (dow === 1) {
+      elDataHint.textContent = 'A casa não abre às segundas. Escolha outro dia.';
+      elDataHint.className = 'hint warn';
+      almoco.disabled = true; jantar.disabled = true; exec.disabled = true;
+    } else if (dow === 0) {
+      jantar.disabled = true;
+      if (jantar.checked) almoco.checked = true;
+      elTurnoHint.textContent = 'Aos domingos a casa abre só no almoço, das 12h às 15h.';
+    }
+    var execOk = (dow >= 2 && dow <= 5) && turnoSel() === 'almoco';
+    if (!execOk) {
+      exec.disabled = true;
+      if (exec.checked) { $('#p-decidir').checked = true; }
+      elPrefHint.textContent = 'O almoço executivo é servido de terça a sexta, só no almoço.';
+    } else {
+      elPrefHint.textContent = 'A chapa do churrasco é preparada na mesa. Avisar antes ajuda a casa a deixar tudo pronto.';
+    }
+  }
+
+  function montarMensagem(){
+    var d = elData.value ? parseISO(elData.value) : inicial;
+    var dow = d.getDay();
+    var slot = $('input[name=slot]:checked');
+    var t = TURNOS[turnoSel()];
+    var linhas = [];
+    linhas.push('Olá, Burgogui! Quero reservar uma mesa.');
+    linhas.push('');
+    linhas.push('Data: ' + DIAS[dow] + ', ' + pad(d.getDate()) + '/' + pad(d.getMonth()+1));
+    if (dow === 1) { linhas.push('Atenção: a casa fecha às segundas.'); }
+    linhas.push('Turno: ' + t.nome.toLowerCase() + (slot ? ', chegando às ' + slot.value.replace(':','h') : ''));
+    linhas.push('Pessoas: ' + pessoas);
+    var pref = prefSel();
+    if (pref) linhas.push('Pretendemos pedir: ' + pref);
+    if (elVeg.checked) linhas.push('Opção vegana: sim');
+    if (elNome.value.trim()) linhas.push('Nome: ' + elNome.value.trim());
+    if (elObs.value.trim()) linhas.push('Obs: ' + elObs.value.trim());
+    return linhas.join('\n');
+  }
+
+  function render(){
+    aplicarRegras();
+    var msg = montarMensagem();
+    elBubble.textContent = msg;
+    elEnviar.href = 'https://wa.me/' + WA_NUMERO + '?text=' + encodeURIComponent(msg);
+  }
+
+  elData.addEventListener('change', function(){ render(); });
+  $$('input[name=turno]').forEach(function(r){ r.addEventListener('change', function(){ renderSlots(); render(); }); });
+  $$('input[name=pref]').forEach(function(r){ r.addEventListener('change', render); });
+  [elNome, elObs].forEach(function(el){ el.addEventListener('input', render); });
+  elVeg.addEventListener('change', render);
+  $('#menos').addEventListener('click', function(){ if (pessoas > 1) pessoas--; elPessoas.value = pessoas; render(); });
+  $('#mais').addEventListener('click', function(){ if (pessoas < 20) pessoas++; elPessoas.value = pessoas; render(); });
+
+  $('#copiar').addEventListener('click', function(){
+    var msg = montarMensagem();
+    function ok(){ var t=$('#toast'); t.classList.add('on'); setTimeout(function(){ t.classList.remove('on'); }, 1800); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(msg).then(ok, ok); }
+    else { var ta=document.createElement('textarea'); ta.value=msg; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); ok(); }
+  });
+
+  // atalho: "Reservar para o executivo" já marca a preferência
+  $$('[data-exec]').forEach(function(a){ a.addEventListener('click', function(){ $('#t-almoco').checked = true; renderSlots(); $('#p-exec').checked = true; render(); }); });
+
+  // abas do cardápio
+  $$('#tabs button').forEach(function(b){
+    b.addEventListener('click', function(){
+      $$('#tabs button').forEach(function(x){ x.classList.remove('on'); });
+      $$('.panel').forEach(function(p){ p.classList.remove('on'); });
+      b.classList.add('on');
+      var p = document.querySelector('.panel[data-panel="'+b.getAttribute('data-tab')+'"]');
+      if (p) p.classList.add('on');
+    });
+  });
+
+  renderSlots();
+  render();
+})();
+</script>
+</body>
+</html>

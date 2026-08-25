@@ -1,21 +1,224 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Protótipos de sites · Gabriel Neri</title><meta name="robots" content="noindex">
-<style>
-body{margin:0;background:#0a0b0e;color:#f2f5f7;font:16px/1.6 system-ui,sans-serif}
-main{max-width:640px;margin:0 auto;padding:56px 20px}
-h1{font-size:22px;margin:0 0 6px}p{color:#8b949e;margin:0 0 28px}
-a.d{display:block;padding:16px 18px;margin:10px 0;border:1px solid #2a2e36;border-radius:12px;color:#f2f5f7;text-decoration:none;background:#15171c}
-a.d:hover{border-color:#3ecf8e}
-footer{margin-top:40px;color:#8b949e;font-size:13px}
-</style></head><body><main>
-<h1>Protótipos de sites</h1>
-<p>Propostas de site feitas por Gabriel Neri para empresas do Recife. Cada página é um protótipo; nenhuma é o site oficial.</p>
-<a class="d" href="burgogui/">Burgogui · Restaurante Coreano · Casa Forte, Recife</a>
-<a class="d" href="dra-ana-claudia-monteiro/">Dra Ana Claudia Monteiro · Dentista em Casa Forte, Recife</a>
-<a class="d" href="mood-beauty-spa/">Mood Beauty Spa · Casa Forte, Recife</a>
-<a class="d" href="picui/">Picuí Restaurante e Pizzaria · Várzea, Recife</a>
-<a class="d" href="portal-da-carne-de-sol/">Portal da Carne de Sol — Cordeiro, Recife · pedido pelo WhatsApp</a>
-<a class="d" href="wadamon/">Restaurante Wadamon · Reservas · Poço da Panela, Recife</a>
-<footer>Gabriel Neri · sites, sistemas e automação · Recife · instagram.com/gabrielneri.dev</footer>
-</main></body></html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demonstrações &amp; Protótipos · Gabriel Neri</title>
+  <meta name="description" content="Índice de protótipos de sites e sistemas desenvolvidos por Gabriel Neri para empresas no Recife.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080b;
+      --bg-card: rgba(18, 21, 28, 0.85);
+      --bg-card-hover: rgba(26, 31, 42, 0.95);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-focus: #3ecf8e;
+      --primary: #DEDBC8;
+      --emerald: #3ECF8E;
+      --emerald-glow: rgba(62, 207, 142, 0.25);
+      --text: #f0f3f6;
+      --text-muted: #8e97a4;
+      --text-dim: #5a6472;
+      --font-almarai: 'Almarai', sans-serif;
+      --font-serif: 'Instrument Serif', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-almarai); }
+    body { background-color: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 20px 80px; -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: 1140px; margin: 0 auto; }
+    
+    header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding-bottom: 36px; border-bottom: 1px solid var(--border); margin-bottom: 44px; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 13px; color: var(--primary); text-decoration: none; transition: transform 0.2s; }
+    .back-link:hover { transform: translateX(-4px); }
+    .header-badge { font-family: var(--font-mono); font-size: 12px; color: var(--emerald); background: rgba(62, 207, 142, 0.1); border: 1px solid rgba(62, 207, 142, 0.3); padding: 4px 12px; border-radius: 100px; }
+    
+    .hero-title-area { text-align: center; max-width: 720px; margin: 0 auto 48px; }
+    h1 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; color: var(--text); }
+    h1 .serif-accent { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--primary); }
+    .hero-desc { color: var(--text-muted); font-size: 15.5px; line-height: 1.6; }
+
+    .search-filter-bar { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 36px; }
+    .filter-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .filter-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); color: var(--text-muted); padding: 7px 16px; border-radius: 100px; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+    .filter-btn:hover { color: var(--text); background: rgba(255, 255, 255, 0.08); }
+    .filter-btn.active { background: rgba(62, 207, 142, 0.15); border-color: var(--emerald); color: var(--emerald); font-weight: 700; }
+    
+    .search-box input { background: #12141a; border: 1px solid var(--border); border-radius: 100px; padding: 8px 18px; color: var(--text); font-size: 13.5px; width: 220px; outline: none; }
+    .search-box input:focus { border-color: var(--emerald); }
+
+    .demos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 24px; }
+    .demo-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.25s ease; backdrop-filter: blur(12px); }
+    .demo-card:hover { background: var(--bg-card-hover); border-color: var(--border-focus); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6); }
+    
+    .demo-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .niche-pill { font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--emerald); background: rgba(62, 207, 142, 0.1); padding: 3px 9px; border-radius: 6px; }
+    .local-pill { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); }
+    
+    .demo-title { font-size: 19px; font-weight: 700; color: var(--text); line-height: 1.35; margin-bottom: 8px; }
+    .demo-sub { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px; }
+    
+    .demo-card-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 18px; border-top: 1px solid var(--border); }
+    .live-dot-wrap { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim); }
+    .live-dot { width: 7px; height: 7px; background: var(--emerald); border-radius: 50%; box-shadow: 0 0 8px var(--emerald); }
+    .open-btn { color: var(--primary); font-size: 14px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; transition: gap 0.2s; }
+    .open-btn:hover { gap: 8px; text-decoration: underline; color: #ffffff; }
+
+    footer { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--border); text-align: center; font-size: 13px; color: var(--text-dim); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="back-link" href="https://gabrielhenriqueneri.github.io/">← Voltar para gabrielneri.dev</a>
+      <span class="header-badge">6 Protótipos Públicos Ativos</span>
+    </header>
+
+    <div class="hero-title-area">
+      <h1>Demonstrações &amp; <span class="serif-accent font-serif-italic">Protótipos</span></h1>
+      <p class="hero-desc">Propostas de páginas sob medida desenvolvidas por Gabriel Neri para empresas e consultórios do Recife. Cada aplicação é um protótipo funcional para validação técnica e comercial.</p>
+    </div>
+
+    <div class="search-filter-bar">
+      <div class="filter-pills">
+        <button class="filter-btn active" data-filter="all">Todos (6)</button>
+        <button class="filter-btn" data-filter="gastronomia">Gastronomia</button>
+        <button class="filter-btn" data-filter="saúde">Saúde</button>
+        <button class="filter-btn" data-filter="estética">Estética</button>
+        <button class="filter-btn" data-filter="delivery">Delivery</button>
+      </div>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Buscar por nome ou bairro...">
+      </div>
+    </div>
+
+    <div class="demos-grid" id="demosGrid">
+      
+      <!-- Wadamon -->
+      <div class="demo-card" data-niche="gastronomia">
+        <div class="demo-card-top">
+          <span class="niche-pill">Gastronomia</span>
+          <span class="local-pill">Poço da Panela, Recife</span>
+        </div>
+        <h3 class="demo-title">Restaurante Wadamon · Reservas</h3>
+        <p class="demo-sub">Reservas automáticas por turno e cardápio digital integrado ao WhatsApp.</p>
+        <div class="demo-card-foot">
+          <span class="live-dot-wrap"><span class="live-dot"></span> No ar</span>
+          <a class="open-btn" href="wadamon/">Abrir Demonstração ↗</a>
+        </div>
+      </div>
+
+      <!-- Dra Ana Claudia -->
+      <div class="demo-card" data-niche="saúde">
+        <div class="demo-card-top">
+          <span class="niche-pill">Saúde</span>
+          <span class="local-pill">Casa Forte, Recife</span>
+        </div>
+        <h3 class="demo-title">Dra. Ana Cláudia Monteiro · Dentista</h3>
+        <p class="demo-sub">Página institucional com agendamento de consultas particular e apresentação de tratamentos.</p>
+        <div class="demo-card-foot">
+          <span class="live-dot-wrap"><span class="live-dot"></span> No ar</span>
+          <a class="open-btn" href="dra-ana-claudia-monteiro/">Abrir Demonstração ↗</a>
+        </div>
+      </div>
+
+      <!-- Portal Carne de Sol -->
+      <div class="demo-card" data-niche="delivery">
+        <div class="demo-card-top">
+          <span class="niche-pill">Delivery</span>
+          <span class="local-pill">Cordeiro, Recife</span>
+        </div>
+        <h3 class="demo-title">Portal da Carne de Sol · Delivery WhatsApp</h3>
+        <p class="demo-sub">Montador de pedidos de família com acompanhamentos selecionáveis direto no WhatsApp.</p>
+        <div class="demo-card-foot">
+          <span class="live-dot-wrap"><span class="live-dot"></span> No ar</span>
+          <a class="open-btn" href="portal-da-carne-de-sol/">Abrir Demonstração ↗</a>
+        </div>
+      </div>
+
+      <!-- Burgogui -->
+      <div class="demo-card" data-niche="gastronomia">
+        <div class="demo-card-top">
+          <span class="niche-pill">Gastronomia</span>
+          <span class="local-pill">Casa Forte, Recife</span>
+        </div>
+        <h3 class="demo-title">Burgogui · Restaurante Coreano</h3>
+        <p class="demo-sub">Reserva organizada por turnos com cardápio digital otimizado para carregamento instantâneo.</p>
+        <div class="demo-card-foot">
+          <span class="live-dot-wrap"><span class="live-dot"></span> No ar</span>
+          <a class="open-btn" href="burgogui/">Abrir Demonstração ↗</a>
+        </div>
+      </div>
+
+      <!-- Picui -->
+      <div class="demo-card" data-niche="gastronomia">
+        <div class="demo-card-top">
+          <span class="niche-pill">Gastronomia</span>
+          <span class="local-pill">Várzea, Recife</span>
+        </div>
+        <h3 class="demo-title">Picuí Restaurante e Pizzaria</h3>
+        <p class="demo-sub">Cardápio interativo e pedidos de combos com cálculo de total automático para fechamento.</p>
+        <div class="demo-card-foot">
+          <span class="live-dot-wrap"><span class="live-dot"></span> No ar</span>
+          <a class="open-btn" href="picui/">Abrir Demonstração ↗</a>
+        </div>
+      </div>
+
+      <!-- Mood Beauty Spa -->
+      <div class="demo-card" data-niche="estética">
+        <div class="demo-card-top">
+          <span class="niche-pill">Estética</span>
+          <span class="local-pill">Casa Forte, Recife</span>
+        </div>
+        <h3 class="demo-title">Mood Beauty Spa · Estética &amp; Beleza</h3>
+        <p class="demo-sub">Apresentação de procedimentos estéticos e agendamento direto de avaliação.</p>
+        <div class="demo-card-foot">
+          <span class="live-dot-wrap"><span class="live-dot"></span> No ar</span>
+          <a class="open-btn" href="mood-beauty-spa/">Abrir Demonstração ↗</a>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      Gabriel Neri · Engenharia de Software, Automação &amp; IA · Recife-PE · <a href="https://www.instagram.com/gabrielneri.dev" target="_blank" style="color:var(--text-muted);">instagram.com/gabrielneri.dev</a>
+    </footer>
+  </div>
+
+  <script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.demo-card');
+    const searchInput = document.getElementById('searchInput');
+
+    function filterItems() {
+      const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+      const searchVal = searchInput.value.toLowerCase().trim();
+
+      cards.forEach(card => {
+        const niche = card.getAttribute('data-niche') || '';
+        const text = card.textContent.toLowerCase();
+        const matchesFilter = activeFilter === 'all' || niche.includes(activeFilter);
+        const matchesSearch = text.includes(searchVal);
+
+        if (matchesFilter && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterItems();
+      });
+    });
+
+    searchInput.addEventListener('input', filterItems);
+  </script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Copiê Gráfica · Gráfica rápida e papelaria nos Aflitos, Recife</title>
+<meta name="description" content="Crachás, etiquetas, encadernação, impressão, carimbos e personalizados nos Aflitos. Peça o orçamento com tudo que a gráfica precisa saber e receba o valor sem ida e volta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --papel:#fafaf7; --papel-2:#f1f1ec; --branco:#ffffff;
+    --tinta:#15161a; --tinta-2:#3a3c44; --cinza:#6b6f7a; --linha:#e2e2dc;
+    --ciano:#19b0d5; --magenta:#e13c7d; --amarelo:#f4c20d; --preto:#15161a;
+    --display:'Archivo','Arial Black',Arial,sans-serif; --mono:'IBM Plex Mono',Consolas,monospace;
+    --raio:6px; --sombra:0 12px 30px rgba(21,22,26,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:var(--display);color:var(--tinta);background:var(--papel);line-height:1.55;font-size:16px}
+  a{color:inherit}
+  h1,h2,h3{font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase}
+  h1{font-size:clamp(40px,7vw,80px)}
+  h2{font-size:clamp(28px,4.4vw,48px)}
+  h3{font-size:18px;letter-spacing:0;text-transform:none;font-weight:700}
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza)}
+  .wrap{width:min(1100px,100% - 40px);margin-inline:auto}
+  @media(max-width:600px){.wrap{width:min(1100px,100% - 28px)}}
+  .secao{padding:72px 0}
+  @media(max-width:700px){.secao{padding:50px 0}}
+  .cmyk{display:inline-flex;gap:4px;vertical-align:middle}
+  .cmyk i{width:10px;height:10px;border-radius:50%;display:block}
+  .cmyk i:nth-child(1){background:var(--ciano)}.cmyk i:nth-child(2){background:var(--magenta)}.cmyk i:nth-child(3){background:var(--amarelo)}.cmyk i:nth-child(4){background:var(--preto)}
+
+  .topo{position:sticky;top:0;z-index:20;background:rgba(250,250,247,.94);backdrop-filter:blur(8px);border-bottom:2px solid var(--tinta)}
+  .topo .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:70px}
+  .marca{text-decoration:none;display:flex;align-items:baseline;gap:10px}
+  .marca b{font-size:30px;font-weight:900;letter-spacing:-.04em;line-height:1}
+  .marca b em{font-style:normal;color:var(--magenta)}
+  .marca small{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza)}
+  @media(max-width:520px){.marca small{display:none}}
+  nav{display:flex;gap:22px;font-size:14px;font-weight:700}
+  nav a{text-decoration:none}
+  nav a:hover{color:var(--magenta)}
+  @media(max-width:820px){nav{display:none}}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:var(--raio);font-weight:700;font-size:15px;text-decoration:none;border:2px solid var(--tinta);cursor:pointer;transition:transform .12s,box-shadow .12s,background .12s;font-family:var(--display)}
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--tinta)}
+  .btn-preto{background:var(--tinta);color:var(--papel)}
+  .btn-amarelo{background:var(--amarelo);color:var(--tinta)}
+  .btn-linha{background:transparent}
+  .btn-p{min-height:42px;padding:0 16px;font-size:14px}
+
+  /* hero com marcas de corte */
+  .hero{position:relative;padding:60px 0 70px;overflow:hidden}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+  @media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:30px}.hero{padding:36px 0 50px}}
+  .hero h1 span{color:var(--magenta)}
+  .hero p.lead{font-size:19px;color:var(--tinta-2);max-width:50ch;margin:22px 0 28px;font-weight:400}
+  .hero .acoes{display:flex;flex-wrap:wrap;gap:12px}
+  .ficha{background:var(--branco);border:2px solid var(--tinta);border-radius:var(--raio);padding:22px;position:relative;box-shadow:8px 8px 0 var(--amarelo)}
+  .ficha .corte{position:absolute;width:14px;height:14px;border-color:var(--tinta);border-style:solid;border-width:0}
+  .ficha .corte.a{left:-1px;top:-1px;border-left-width:2px;border-top-width:2px}
+  .ficha .corte.b{right:-1px;top:-1px;border-right-width:2px;border-top-width:2px}
+  .ficha .corte.c{left:-1px;bottom:-1px;border-left-width:2px;border-bottom-width:2px}
+  .ficha .corte.d{right:-1px;bottom:-1px;border-right-width:2px;border-bottom-width:2px}
+  .ficha dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:14.5px}
+  .ficha dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);padding-top:3px}
+  .ficha dd{font-weight:600}
+  .ficha .cmyk{margin-top:16px}
+  .regua{height:14px;margin-top:18px;background:repeating-linear-gradient(90deg,var(--tinta) 0 1px,transparent 1px 10px);position:relative;opacity:.55}
+  .regua::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,var(--tinta) 0 1px,transparent 1px 50px);height:14px}
+
+  /* serviços */
+  .servicos{background:var(--tinta);color:var(--papel)}
+  .servicos h2{color:var(--papel)}
+  .servicos .mono{color:#9da2ad}
+  .grade{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:34px;background:#2b2d35;border:2px solid #2b2d35}
+  @media(max-width:900px){.grade{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.grade{grid-template-columns:1fr}}
+  .grade article{background:var(--tinta);padding:24px 22px;min-height:170px;display:flex;flex-direction:column;gap:8px}
+  .grade article:hover{background:#1d1f25}
+  .grade .n{font-family:var(--mono);font-size:12px;color:var(--amarelo);letter-spacing:.1em}
+  .grade h3{color:var(--papel);font-size:19px}
+  .grade p{font-size:14px;color:#b7bbc5;flex:1}
+  .grade .env{font-family:var(--mono);font-size:11.5px;color:var(--ciano);letter-spacing:.04em}
+
+  /* como funciona */
+  .fluxo{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:34px;border:2px solid var(--tinta);border-radius:var(--raio);overflow:hidden}
+  @media(max-width:860px){.fluxo{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.fluxo{grid-template-columns:1fr}}
+  .fluxo div{padding:24px 20px;border-right:2px solid var(--tinta);background:var(--branco)}
+  .fluxo div:last-child{border-right:0}
+  @media(max-width:860px){.fluxo div{border-bottom:2px solid var(--tinta)}.fluxo div:nth-child(2n){border-right:0}.fluxo div:nth-last-child(-n+2){border-bottom:0}}
+  @media(max-width:520px){.fluxo div{border-right:0!important;border-bottom:2px solid var(--tinta)!important}.fluxo div:last-child{border-bottom:0!important}}
+  .fluxo b{display:block;font-size:40px;font-weight:900;line-height:1;margin-bottom:10px}
+  .fluxo b.c{color:var(--ciano)}.fluxo b.m{color:var(--magenta)}.fluxo b.y{color:var(--amarelo)}.fluxo b.k{color:var(--tinta)}
+  .fluxo h3{margin-bottom:6px}
+  .fluxo p{font-size:14px;color:var(--cinza)}
+
+  /* orçamento */
+  .orc{background:var(--papel-2);border-top:2px solid var(--tinta)}
+  .orc .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:start}
+  @media(max-width:900px){.orc .wrap{grid-template-columns:1fr}}
+  .orc p.exp{color:var(--tinta-2);margin-top:14px;max-width:44ch;font-weight:400}
+  .lista-env{list-style:none;margin-top:22px;display:grid;gap:10px}
+  .lista-env li{display:flex;gap:12px;font-size:15px;align-items:flex-start}
+  .lista-env li i{flex:none;width:22px;height:22px;border:2px solid var(--tinta);border-radius:4px;display:grid;place-items:center;font-style:normal;font-size:13px;font-weight:900;background:var(--amarelo)}
+  form{background:var(--branco);border:2px solid var(--tinta);border-radius:var(--raio);padding:26px;box-shadow:var(--sombra)}
+  @media(max-width:600px){form{padding:18px}}
+  fieldset{border:0;margin-bottom:18px}
+  legend,label.l{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;color:var(--tinta-2)}
+  .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  @media(max-width:560px){.seg{grid-template-columns:1fr 1fr}}
+  .seg input{position:absolute;opacity:0;pointer-events:none}
+  .seg label{display:block;text-align:center;padding:12px 8px;border:2px solid var(--linha);border-radius:var(--raio);cursor:pointer;font-size:13.5px;font-weight:700;background:var(--papel);transition:all .12s}
+  .seg input:checked+label{border-color:var(--tinta);background:var(--tinta);color:var(--papel)}
+  .seg input:focus-visible+label{outline:2px solid var(--magenta);outline-offset:2px}
+  input[type=text],input[type=number],input[type=date],select,textarea{width:100%;min-height:48px;padding:12px 14px;border:2px solid var(--linha);border-radius:var(--raio);font:inherit;font-size:15px;background:var(--papel);color:var(--tinta)}
+  textarea{min-height:84px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--magenta);outline-offset:1px;border-color:var(--magenta)}
+  .linha2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .linha3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  @media(max-width:560px){.linha2,.linha3{grid-template-columns:1fr}}
+  .campo{margin-bottom:14px}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin-bottom:14px}
+  .check input{width:20px;height:20px;margin-top:2px;accent-color:var(--magenta)}
+  .enviar{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+  .enviar .btn{width:100%}
+  .previa{background:var(--papel);border:2px dashed var(--linha);border-radius:var(--raio);padding:14px;font-family:var(--mono);font-size:12.5px;color:var(--tinta-2);white-space:pre-wrap;line-height:1.55}
+  .previa b{color:var(--magenta);font-family:var(--display)}
+  .aviso{font-size:12.5px;color:var(--cinza);font-weight:400}
+
+  /* onde */
+  .onde .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  @media(max-width:860px){.onde .wrap{grid-template-columns:1fr}}
+  .horas{list-style:none;margin-top:18px;display:grid;gap:0;border:2px solid var(--tinta);border-radius:var(--raio);overflow:hidden}
+  .horas li{display:flex;justify-content:space-between;padding:12px 16px;background:var(--branco);border-bottom:2px solid var(--linha);font-size:15px}
+  .horas li:last-child{border-bottom:0}
+  .horas li b{font-family:var(--mono);font-weight:500}
+  .contato{background:var(--branco);border:2px solid var(--tinta);border-radius:var(--raio);padding:24px;box-shadow:8px 8px 0 var(--ciano)}
+  .contato h3{font-size:22px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:6px}
+  .contato p{font-size:15px;color:var(--tinta-2)}
+  .contato .tel{display:block;font-size:22px;font-weight:900;margin-top:12px;text-decoration:none}
+  .contato .btn{margin-top:16px}
+
+  footer.pe{background:var(--tinta);color:#b7bbc5;padding:40px 0 24px;font-size:14px;border-top:6px solid var(--amarelo)}
+  footer.pe .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px}
+  @media(max-width:860px){footer.pe .wrap{grid-template-columns:1fr}}
+  footer.pe h4{font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;color:var(--papel);margin-bottom:8px}
+  footer.pe a{color:var(--papel);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25)}
+  footer.pe .fim{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:16px;margin-top:8px;font-size:12.5px;color:#8d919c;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-family:var(--mono)}
+  .zap-fixo{position:fixed;right:16px;bottom:16px;z-index:30;box-shadow:4px 4px 0 var(--magenta)}
+  @media(min-width:861px){.zap-fixo{display:none}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div style="background:#15161a;color:#fafaf7;text-align:center;font:700 12px/1.4 'Archivo',Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px">Protótipo · proposta de site para Copiê Gráfica · feito por Gabriel Neri · não é o site oficial</div>
+
+<header class="topo">
+  <div class="wrap">
+    <a class="marca" href="#"><b>Copi<em>ê</em></b><small>gráfica &amp; papelaria · Aflitos</small></a>
+    <nav aria-label="Seções">
+      <a href="#servicos">Serviços</a>
+      <a href="#como">Como funciona</a>
+      <a href="#onde">Onde</a>
+    </nav>
+    <a class="btn btn-amarelo btn-p" href="#orcamento">Pedir orçamento</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="mono"><span class="cmyk"><i></i><i></i><i></i><i></i></span>&nbsp; Gráfica rápida · Rua do Futuro, 479</span>
+      <h1 style="margin-top:14px">Orçamento <span>sem ida e volta.</span></h1>
+      <p class="lead">Crachá, etiqueta, encadernação, impressão, carimbo. Diga o que é, quanto, o tamanho e para quando — a resposta já vem com o valor e o prazo.</p>
+      <div class="acoes">
+        <a class="btn btn-preto" href="#orcamento">Pedir orçamento</a>
+        <a class="btn btn-linha" href="#servicos">Ver serviços</a>
+      </div>
+    </div>
+    <div class="ficha" aria-label="Exemplo de pedido">
+      <i class="corte a"></i><i class="corte b"></i><i class="corte c"></i><i class="corte d"></i>
+      <span class="mono">Exemplo de pedido que chega pronto</span>
+      <dl style="margin-top:14px">
+        <dt>Serviço</dt><dd>Crachás com cordão personalizado</dd>
+        <dt>Quantidade</dt><dd>40 unidades</dd>
+        <dt>Tamanho</dt><dd>8,5 × 5,5 cm, PVC</dd>
+        <dt>Acabamento</dt><dd>Cordão 90 × 2 cm, impresso</dd>
+        <dt>Prazo</dt><dd>Sexta, 12/09</dd>
+        <dt>Arquivo</dt><dd>Vai na conversa (PDF)</dd>
+      </dl>
+      <div class="cmyk"><i></i><i></i><i></i><i></i></div>
+      <div class="regua" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<section class="servicos secao" id="servicos">
+  <div class="wrap">
+    <span class="mono">Serviços</span>
+    <h2>O que sai daqui</h2>
+    <div class="grade">
+      <article><span class="n">01</span><h3>Crachás e cordões</h3><p>Crachás personalizados para equipe e evento, com cordão impresso.</p><span class="env">enviar: nomes, logo, quantidade</span></article>
+      <article><span class="n">02</span><h3>Etiquetas e adesivos</h3><p>Etiquetas e adesivos personalizados, em folha ou em rolo, para produto, embalagem e escola.</p><span class="env">enviar: tamanho, quantidade, arte</span></article>
+      <article><span class="n">03</span><h3>Encadernação e plastificação</h3><p>Encadernação de apostilas, TCC e material de curso; plastificação de documentos e cardápios.</p><span class="env">enviar: número de páginas, tipo de capa</span></article>
+      <article><span class="n">04</span><h3>Impressão e cópias</h3><p>Impressão colorida e preto e branco, cópias e digitalização, do A4 ao formato maior.</p><span class="env">enviar: arquivo, quantidade, papel</span></article>
+      <article><span class="n">05</span><h3>Carimbos</h3><p>Gravação de carimbos para empresa, escola e uso pessoal.</p><span class="env">enviar: texto do carimbo, tamanho</span></article>
+      <article><span class="n">06</span><h3>Trabalhos escolares e apresentações</h3><p>Impressão, montagem e acabamento de trabalhos, apresentações e banners escolares.</p><span class="env">enviar: arquivo, prazo de entrega</span></article>
+      <article><span class="n">07</span><h3>Pastas e materiais personalizados</h3><p>Pastas, cadernos, blocos e materiais com a marca da empresa ou do evento.</p><span class="env">enviar: logo, quantidade, modelo</span></article>
+      <article><span class="n">08</span><h3>Material de divulgação</h3><p>Cartão de visita, flyer, folder e banner para o seu negócio.</p><span class="env">enviar: arte ou texto, quantidade</span></article>
+      <article><span class="n">09</span><h3>Fotos</h3><p>Revelação e impressão de fotos, inclusive para documento.</p><span class="env">enviar: arquivos, tamanho</span></article>
+    </div>
+  </div>
+</section>
+
+<section class="secao" id="como">
+  <div class="wrap">
+    <span class="mono">Como funciona</span>
+    <h2>Do pedido à retirada</h2>
+    <div class="fluxo">
+      <div><b class="c">1</b><h3>Você pede</h3><p>Preenche o orçamento aqui embaixo. Chega no nosso WhatsApp com tudo que precisamos saber.</p></div>
+      <div><b class="m">2</b><h3>A gente responde</h3><p>Valor e prazo na mesma conversa. Se faltar algo no arquivo, avisamos antes de produzir.</p></div>
+      <div><b class="y">3</b><h3>Produzimos</h3><p>Impressão, corte e acabamento na loja dos Aflitos.</p></div>
+      <div><b class="k">4</b><h3>Você retira</h3><p>Na Rua do Futuro, 479, Loja 06 — segunda a sexta das 9h às 18h, sábado das 9h às 13h.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="orc secao" id="orcamento">
+  <div class="wrap">
+    <div>
+      <span class="mono">Orçamento</span>
+      <h2>Tudo que a gráfica precisa, numa mensagem.</h2>
+      <p class="exp">Sem "quanto fica?" e mais cinco perguntas. O pedido já chega com serviço, quantidade, tamanho, acabamento e prazo — e o arquivo você anexa direto na conversa.</p>
+      <ul class="lista-env">
+        <li><i>1</i>Escolha o serviço e diga a quantidade.</li>
+        <li><i>2</i>Tamanho e acabamento — se não souber, marque "me orientem".</li>
+        <li><i>3</i>Para quando. A gente confirma o prazo na resposta.</li>
+      </ul>
+    </div>
+    <form id="form" onsubmit="return enviar(event)">
+      <fieldset>
+        <legend>Serviço</legend>
+        <div class="seg">
+          <input type="radio" name="serv" id="s1" value="Crachás e cordões" checked><label for="s1">Crachás e cordões</label>
+          <input type="radio" name="serv" id="s2" value="Etiquetas e adesivos"><label for="s2">Etiquetas / adesivos</label>
+          <input type="radio" name="serv" id="s3" value="Encadernação / plastificação"><label for="s3">Encadernação</label>
+          <input type="radio" name="serv" id="s4" value="Impressão e cópias"><label for="s4">Impressão / cópias</label>
+          <input type="radio" name="serv" id="s5" value="Carimbo"><label for="s5">Carimbo</label>
+          <input type="radio" name="serv" id="s6" value="Trabalho escolar / apresentação"><label for="s6">Trabalho escolar</label>
+          <input type="radio" name="serv" id="s7" value="Pastas e personalizados"><label for="s7">Personalizados</label>
+          <input type="radio" name="serv" id="s8" value="Cartão, flyer ou banner"><label for="s8">Cartão / flyer / banner</label>
+          <input type="radio" name="serv" id="s9" value="Fotos"><label for="s9">Fotos</label>
+        </div>
+      </fieldset>
+      <div class="linha3">
+        <div class="campo"><label class="l" for="qtd">Quantidade</label><input type="number" id="qtd" min="1" placeholder="Ex.: 40"></div>
+        <div class="campo"><label class="l" for="tam">Tamanho / formato</label><input type="text" id="tam" placeholder="Ex.: A4, 8,5×5,5 cm"></div>
+        <div class="campo"><label class="l" for="prazo">Para quando</label><input type="date" id="prazo"></div>
+      </div>
+      <fieldset>
+        <legend>Acabamento</legend>
+        <div class="seg">
+          <input type="radio" name="acab" id="ac1" value="padrão" checked><label for="ac1">Padrão</label>
+          <input type="radio" name="acab" id="ac2" value="plastificado"><label for="ac2">Plastificado</label>
+          <input type="radio" name="acab" id="ac3" value="laminado / fosco"><label for="ac3">Laminado / fosco</label>
+          <input type="radio" name="acab" id="ac4" value="colorido frente e verso"><label for="ac4">Frente e verso</label>
+          <input type="radio" name="acab" id="ac5" value="com cordão / suporte"><label for="ac5">Com cordão / suporte</label>
+          <input type="radio" name="acab" id="ac6" value="não sei — me orientem"><label for="ac6">Me orientem</label>
+        </div>
+      </fieldset>
+      <div class="campo"><label class="l" for="det">Detalhes (texto, cores, papel, o que mais importar)</label><textarea id="det" placeholder="Ex.: 40 crachás com nome e cargo, logo em azul; cordão preto com o nome da empresa"></textarea></div>
+      <label class="check"><input type="checkbox" id="arq" checked><span>Vou anexar o arquivo (PDF, imagem ou logo) na conversa do WhatsApp.</span></label>
+      <div class="linha2">
+        <div class="campo"><label class="l" for="nome">Seu nome</label><input type="text" id="nome" placeholder="Nome ou empresa" autocomplete="name" required></div>
+        <div class="campo"><label class="l" for="retira">Retirada</label><select id="retira"><option>Retiro na loja</option><option>Preciso combinar entrega</option></select></div>
+      </div>
+      <div class="enviar">
+        <div class="previa" id="previa" aria-live="polite"></div>
+        <button class="btn btn-preto" type="submit">Enviar orçamento pelo WhatsApp</button>
+        <p class="aviso">Você revisa a mensagem no WhatsApp antes de enviar. O valor e o prazo vêm na resposta da gráfica.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="onde secao" id="onde">
+  <div class="wrap">
+    <div>
+      <span class="mono">Onde e quando</span>
+      <h2>Aflitos, Rua do Futuro</h2>
+      <p style="margin-top:14px;color:var(--tinta-2);max-width:48ch;font-weight:400">Loja 06 do número 479, na divisa dos Aflitos com as Graças — perto de quem trabalha e estuda na Zona Norte.</p>
+      <ul class="horas">
+        <li><span>Segunda a sexta</span><b>9h – 18h</b></li>
+        <li><span>Sábado</span><b>9h – 13h</b></li>
+        <li><span>Domingo</span><b>fechado</b></li>
+      </ul>
+    </div>
+    <div class="contato">
+      <h3>Copiê Gráfica</h3>
+      <p>Rua do Futuro, 479, Loja 06<br>Aflitos · Recife-PE</p>
+      <a class="tel" href="https://wa.me/5581983056200">(81) 98305-6200</a>
+      <p style="font-family:var(--mono);font-size:13px;margin-top:4px">WhatsApp de orçamento · fixo (81) 3125-1188</p>
+      <a class="btn btn-linha" href="https://www.google.com/maps/search/?api=1&query=Rua+do+Futuro+479+Aflitos+Recife">Abrir no mapa</a>
+    </div>
+  </div>
+</section>
+
+<footer class="pe">
+  <div class="wrap">
+    <div>
+      <h4>Copiê Gráfica</h4>
+      <p>Gráfica rápida e papelaria · Aflitos, Recife</p>
+      <p style="margin-top:8px">Instagram: <a href="https://instagram.com/copiegrafica">@copiegrafica</a></p>
+    </div>
+    <div>
+      <h4>Onde</h4>
+      <p>Rua do Futuro, 479, Loja 06<br>Aflitos · Recife-PE</p>
+    </div>
+    <div>
+      <h4>Orçamento</h4>
+      <p><a href="https://wa.me/5581983056200">(81) 98305-6200</a></p>
+      <p style="margin-top:8px">Fixo: (81) 3125-1188</p>
+    </div>
+    <div class="fim"><span>protótipo feito por Gabriel Neri · não é o site oficial</span><span>serviços e horários vêm das publicações da própria gráfica e do cadastro público do CNPJ</span></div>
+  </div>
+</footer>
+
+<a class="btn btn-amarelo zap-fixo" href="#orcamento">Pedir orçamento</a>
+
+<script>
+  const ZAP = '5581983056200'; /* "Orçamento" na bio do @copiegrafica; bate com o cadastro do CNPJ */
+  const f = document.getElementById('form');
+  const previa = document.getElementById('previa');
+  const val = (n) => (f.querySelector(`input[name="${n}"]:checked`) || {}).value || '';
+  function montar() {
+    const prazo = f.prazo.value ? f.prazo.value.split('-').reverse().join('/') : 'a combinar';
+    let m = `Olá, Copiê! Quero um orçamento.\n`;
+    m += `Serviço: ${val('serv')}\n`;
+    if (f.qtd.value) m += `Quantidade: ${f.qtd.value}\n`;
+    if (f.tam.value.trim()) m += `Tamanho/formato: ${f.tam.value.trim()}\n`;
+    m += `Acabamento: ${val('acab')}\n`;
+    m += `Para quando: ${prazo}\n`;
+    if (f.det.value.trim()) m += `Detalhes: ${f.det.value.trim()}\n`;
+    m += f.arq.checked ? `Arquivo: vou anexar aqui na conversa\n` : `Arquivo: ainda não tenho\n`;
+    m += `${f.retira.value}\n`;
+    if (f.nome.value.trim()) m += `Nome: ${f.nome.value.trim()}\n`;
+    m += `(pedido feito pelo site)`;
+    return m;
+  }
+  function atualizar() { previa.innerHTML = '<b>A mensagem que vai chegar na gráfica:</b>\n' + montar().replace(/</g, '&lt;'); }
+  f.addEventListener('input', atualizar);
+  f.addEventListener('change', atualizar);
+  atualizar();
+  function enviar(e) {
+    e.preventDefault();
+    if (!f.nome.value.trim()) { f.nome.focus(); return false; }
+    window.open('https://wa.me/' + ZAP + '?text=' + encodeURIComponent(montar()), '_blank');
+    return false;
+  }
+</script>
+</body>
+</html>

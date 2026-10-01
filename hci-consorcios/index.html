@@ -138,11 +138,28 @@ legend{font-weight:600;font-size:15px;padding:0;margin-bottom:10px}
 .rodape a{color:var(--tinta);font-weight:600;text-decoration:none;min-height:32px;display:inline-flex;align-items:center}
 .assina{grid-column:1/-1;border-top:1px solid var(--linha);padding-top:16px;font-size:12.5px}
 
+.isca{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.erro{margin:0;color:#A3251B;font-weight:600;font-size:15px}
+.erro a{color:#A3251B}
+.texto-campo[aria-invalid=true]{border-color:#A3251B;box-shadow:0 0 0 3px rgba(163,37,27,.15)}
+.botao[disabled]{opacity:.7;cursor:progress}
+button.botao{border:0;font-family:inherit;cursor:pointer}
+.resumo{margin:0;background:var(--papel);border-radius:var(--raio-campo);padding:6px 20px}
+.resumo div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--linha)}
+.resumo div:last-child{border-bottom:0}
+.resumo dt{font-weight:500;font-size:15px;color:var(--cinza)}
+.resumo dd{margin:0;font-weight:700;text-align:right}
+.pronto{grid-column:1/-1;display:flex;flex-direction:column;gap:14px;outline:0}
+.pronto[hidden],.enviar-form[hidden],.previa[hidden]{display:none}
+.pronto h2{font-size:clamp(1.9rem, 3.4vw, 2.8rem)}
+.pronto p{color:var(--cinza);max-width:52ch;font-size:17px}
+.acoes-linha{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
 @media (max-width:520px){
   .marcas .longo{display:none}
   .marcas .curto{display:inline}
   .comparar strong{font-size:22px}
-  .acoes,.botao{width:100%}
+  .acoes,.botao,.acoes-linha .botao-linha{width:100%}
+  .acoes-linha .botao-linha{justify-content:center}
   .botao{white-space:normal;text-align:center}
 }
 @media (min-width:960px){
@@ -231,16 +248,21 @@ legend{font-weight:600;font-size:15px;padding:0;margin-bottom:10px}
 </section>
 
 <section class="secao largura" aria-labelledby="t-enviar">
-  <div class="enviar">
-    <div class="enviar-form">
+  <div class="enviar" id="enviar-caixa">
+    <form class="enviar-form" id="form" novalidate>
       <div>
         <h2 id="t-enviar">Mande a sua conta para o Janilson</h2>
-        <p>Janilson Gomes é o especialista da HCI em Recife. Ele responde em até 24 horas úteis com as opções para o seu perfil.</p>
+        <p>Janilson Gomes é o especialista da HCI em Recife. Ele responde no seu WhatsApp em até 24 horas úteis com as opções para o seu perfil.</p>
       </div>
       <div class="campo">
         <label for="nome">Seu nome</label>
-        <input id="nome" class="texto-campo" type="text" autocomplete="given-name" maxlength="60" placeholder="Como o Janilson deve te chamar">
+        <input id="nome" name="nome" class="texto-campo" type="text" autocomplete="given-name" maxlength="60" placeholder="Como o Janilson deve te chamar" required>
       </div>
+      <div class="campo">
+        <label for="whatsapp">Seu WhatsApp</label>
+        <input id="whatsapp" name="whatsapp" class="texto-campo num" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="16" placeholder="(81) 99999-9999" required>
+      </div>
+      <div class="isca" aria-hidden="true"><label for="site">Deixe em branco</label><input id="site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
       <fieldset>
         <legend>Quando pensa em comprar?</legend>
         <div class="chips" id="quando">
@@ -249,14 +271,30 @@ legend{font-weight:600;font-size:15px;padding:0;margin-bottom:10px}
           <button type="button" class="chip" data-quando="pesquisando" aria-pressed="false">Só estou pesquisando</button>
         </div>
       </fieldset>
+      <p class="erro" id="erro" role="alert" hidden></p>
       <div class="acoes">
-        <a class="botao" id="enviar" href="https://wa.me/5581997461550" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
-        <p class="nota">Abre o seu WhatsApp com a mensagem ao lado já escrita. Nada sai antes de você tocar em enviar, e o Janilson recebe o seu número pela própria conversa.</p>
+        <button class="botao" id="enviar" type="submit">Enviar minha conta</button>
+        <p class="nota">Ao enviar, você autoriza a HCI a falar com você pelo WhatsApp sobre consórcio. Seus dados não são repassados a ninguém.</p>
       </div>
+    </form>
+    <div class="previa" id="previa">
+      <p>O que o Janilson recebe</p>
+      <dl class="resumo num">
+        <div><dt>Aluguel por mês</dt><dd id="r-aluguel">R$ 1.800</dd></div>
+        <div><dt>Tempo</dt><dd id="r-anos">10 anos</dd></div>
+        <div><dt>Total de aluguel</dt><dd id="r-total">R$ 216.000</dd></div>
+        <div><dt>Carta que quer entender</dt><dd id="r-carta">R$ 300 mil</dd></div>
+        <div><dt>Parcela estimada</dt><dd id="r-parcela">R$ 1.785/mês</dd></div>
+        <div><dt>Quando pensa em comprar</dt><dd id="r-quando">Não marcado</dd></div>
+      </dl>
     </div>
-    <div class="previa">
-      <p>A mensagem que vai</p>
-      <p class="mensagem num" id="mensagem"></p>
+    <div class="pronto" id="pronto" hidden tabindex="-1">
+      <h2>Pronto, <span id="pronto-nome"></span>.</h2>
+      <p>O Janilson recebeu a sua conta e responde no seu WhatsApp em até 24 horas úteis. Se preferir, já pode chamar agora.</p>
+      <div class="acoes-linha">
+        <a class="botao" id="falar-agora" href="https://wa.me/5581997461550" target="_blank" rel="noopener">Falar agora pelo WhatsApp</a>
+        <a class="botao-linha" id="indicar-pronto" href="https://wa.me/" target="_blank" rel="noopener">Mandar a calculadora para alguém</a>
+      </div>
     </div>
   </div>
 </section>
@@ -285,21 +323,26 @@ legend{font-weight:600;font-size:15px;padding:0;margin-bottom:10px}
 <script>
 (function(){
   var FONE = '5581997461550';
+  // A calculadora roda em dois lugares (o sistema no Netlify e a demo no GitHub Pages) e grava no mesmo sistema.
+  var SISTEMA = 'https://hci-captacao.netlify.app';
+  var API = /netlify\.app$|^localhost$|^127\.0\.0\.1$/.test(location.hostname) ? '/api/lead' : SISTEMA + '/api/lead';
   var CARTAS = { 300: 1785, 400: 2380, 500: 2975 };
   var QUANDO = {
-    'este-ano': 'Penso em comprar ainda este ano.',
-    '1-2': 'Penso em comprar em 1 a 2 anos.',
-    'pesquisando': 'Por enquanto estou pesquisando.'
+    'este-ano': { rotulo: 'Ainda este ano', linha: 'Penso em comprar ainda este ano.' },
+    '1-2': { rotulo: 'Em 1 a 2 anos', linha: 'Penso em comprar em 1 a 2 anos.' },
+    'pesquisando': { rotulo: 'Só pesquisando', linha: 'Por enquanto estou pesquisando.' }
   };
-  var ORIGENS = { story: 'pelo story', bio: 'pelo link da bio', status: 'pelo status do WhatsApp', indicacao: 'por indicação de um amigo', anuncio: 'por um anúncio', site: 'pelo site da HCI' };
-  var estado = { aluguel: 1800, anos: 10, carta: 300, quando: '' };
+  var estado = { aluguel: 1800, anos: 10, carta: 300, quando: '', codigo: '' };
 
   var params = new URLSearchParams(location.search);
-  var origem = (params.get('origem') || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20);
+  var limpa = function(v){ return (v || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20); };
+  var origem = limpa(params.get('origem'));
+  var ref = limpa(params.get('ref'));
 
   var $ = function(id){ return document.getElementById(id); };
   var reais = function(n){ return 'R$ ' + Math.round(n).toLocaleString('pt-BR'); };
   var anosTexto = function(n){ return n === 1 ? '1 ano' : n + ' anos'; };
+  var base = location.protocol.indexOf('http') === 0 ? location.origin + location.pathname : SISTEMA + '/';
 
   function frase(total){
     if (estado.aluguel === 0) return 'Digite quanto você paga de aluguel por mês.';
@@ -309,23 +352,27 @@ legend{font-weight:600;font-size:15px;padding:0;margin-bottom:10px}
     return 'É ' + Math.round(total / 3000) + '% de uma carta de R$ 300 mil, e esse dinheiro não volta.';
   }
 
-  function mensagem(total){
+  function mensagem(){
+    var total = estado.aluguel * 12 * estado.anos;
     var nome = $('nome').value.trim();
-    var l = [];
-    l.push('Olá, Janilson.' + (nome ? ' Aqui é ' + nome + '.' : ''));
+    var l = ['Olá, Janilson.' + (nome ? ' Aqui é ' + nome + '.' : '')];
     if (estado.aluguel > 0) l.push('Fiz a conta na página da HCI: pago ' + reais(estado.aluguel) + ' de aluguel por mês, o que dá ' + reais(total) + ' em ' + anosTexto(estado.anos) + '.');
     l.push('Quero entender a carta de R$ ' + estado.carta + ' mil, com parcela estimada de ' + reais(CARTAS[estado.carta]) + ' por mês.');
-    if (estado.quando) l.push(QUANDO[estado.quando]);
-    if (origem) l.push('Cheguei à página ' + (ORIGENS[origem] || 'pelo link "' + origem + '"') + '.');
+    if (estado.quando) l.push(QUANDO[estado.quando].linha);
     return l.join('\n');
+  }
+  var linkWhats = function(){ return 'https://wa.me/' + FONE + '?text=' + encodeURIComponent(mensagem()); };
+  function linkIndicar(){
+    var url = base + '?origem=indicacao' + (estado.codigo ? '&ref=' + estado.codigo : '');
+    return 'https://wa.me/?text=' + encodeURIComponent('Fiz a conta de quanto o aluguel soma em alguns anos. Faz a sua, leva 20 segundos: ' + url);
   }
 
   function atualizar(){
     var total = estado.aluguel * 12 * estado.anos;
     var parc = CARTAS[estado.carta];
+    var totalTexto = reais(total);
     $('anos-saida').textContent = anosTexto(estado.anos);
     $('anos-texto').textContent = anosTexto(estado.anos);
-    var totalTexto = reais(total);
     $('total').textContent = totalTexto;
     $('total').style.fontSize = 'clamp(2.2rem, ' + (165 / totalTexto.length).toFixed(2) + 'cqi, 6.5rem)';
     $('frase').textContent = frase(total);
@@ -333,9 +380,13 @@ legend{font-weight:600;font-size:15px;padding:0;margin-bottom:10px}
     $('aluguel-mes').textContent = reais(estado.aluguel) + '/mês';
     $('carta-nome').textContent = 'R$ ' + estado.carta + ' mil';
     $('parcela-mes').textContent = reais(parc) + '/mês';
-    var texto = mensagem(total);
-    $('mensagem').textContent = texto;
-    $('enviar').href = 'https://wa.me/' + FONE + '?text=' + encodeURIComponent(texto);
+    $('r-aluguel').textContent = reais(estado.aluguel);
+    $('r-anos').textContent = anosTexto(estado.anos);
+    $('r-total').textContent = totalTexto;
+    $('r-carta').textContent = 'R$ ' + estado.carta + ' mil';
+    $('r-parcela').textContent = reais(parc) + '/mês';
+    $('r-quando').textContent = estado.quando ? QUANDO[estado.quando].rotulo : 'Não marcado';
+    $('indicar').href = linkIndicar();
   }
 
   $('aluguel').addEventListener('input', function(e){
@@ -348,7 +399,15 @@ legend{font-weight:600;font-size:15px;padding:0;margin-bottom:10px}
     estado.anos = parseInt(e.target.value, 10) || 1;
     atualizar();
   });
-  $('nome').addEventListener('input', atualizar);
+  $('whatsapp').addEventListener('input', function(e){
+    var d = e.target.value.replace(/\D/g, '').slice(0, 11);
+    var f = d;
+    if (d.length > 2) f = '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    if (d.length > 7) f = '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length - 4) + '-' + d.slice(d.length - 4);
+    e.target.value = f;
+    e.target.removeAttribute('aria-invalid');
+  });
+  $('nome').addEventListener('input', function(e){ e.target.removeAttribute('aria-invalid'); });
 
   document.querySelectorAll('.carta').forEach(function(b){
     b.addEventListener('click', function(){
@@ -366,9 +425,57 @@ legend{font-weight:600;font-size:15px;padding:0;margin-bottom:10px}
     });
   });
 
-  var base = location.protocol.indexOf('http') === 0 ? location.origin + location.pathname : 'https://gabrielhenriqueneri.github.io/demos/hci-consorcios/';
-  $('indicar').href = 'https://wa.me/?text=' + encodeURIComponent('Fiz a conta de quanto o aluguel soma em alguns anos. Faz a sua, leva 20 segundos: ' + base + '?origem=indicacao');
-  var oi = 'Olá, Janilson. Vim pela página da calculadora de aluguel' + (origem ? ' (' + (ORIGENS[origem] || origem) + ')' : '') + '.';
+  function mostrarErro(texto, campo, comWhats){
+    var p = $('erro');
+    p.textContent = texto;
+    if (comWhats) {
+      var a = document.createElement('a');
+      a.href = linkWhats(); a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = 'Mandar pelo WhatsApp';
+      p.appendChild(document.createTextNode(' '));
+      p.appendChild(a);
+    }
+    p.hidden = false;
+    if (campo && $(campo)) { $(campo).setAttribute('aria-invalid', 'true'); $(campo).focus(); }
+  }
+
+  $('form').addEventListener('submit', function(e){
+    e.preventDefault();
+    $('erro').hidden = true;
+    var nome = $('nome').value.trim();
+    var fone = $('whatsapp').value.replace(/\D/g, '');
+    if (nome.length < 2) return mostrarErro('Escreva o seu nome.', 'nome');
+    if (fone.length < 10) return mostrarErro('Escreva o WhatsApp com DDD, por exemplo (81) 99999-9999.', 'whatsapp');
+    var botao = $('enviar');
+    botao.disabled = true;
+    botao.textContent = 'Enviando...';
+    fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome: nome, whatsapp: fone, aluguel: estado.aluguel, anos: estado.anos, carta: estado.carta, quando: estado.quando, origem: origem, ref: ref, site: $('site').value })
+    }).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(j){ return { ok: r.ok, j: j }; });
+    }).then(function(res){
+      if (!res.ok) throw { campo: res.j.campo, texto: res.j.erro };
+      estado.codigo = res.j.codigo || '';
+      $('form').hidden = true;
+      $('previa').hidden = true;
+      $('pronto-nome').textContent = nome.split(' ')[0];
+      $('falar-agora').href = linkWhats();
+      $('indicar-pronto').href = linkIndicar();
+      $('indicar').href = linkIndicar();
+      $('pronto').hidden = false;
+      $('pronto').focus();
+    }).catch(function(err){
+      if (err && err.texto) mostrarErro(err.texto, err.campo);
+      else mostrarErro('Não consegui enviar agora. A sua conta vai escrita por aqui:', null, true);
+    }).then(function(){
+      botao.disabled = false;
+      botao.textContent = 'Enviar minha conta';
+    });
+  });
+
+  var oi = 'Olá, Janilson. Vim pela página da calculadora de aluguel.';
   $('falar').href = 'https://wa.me/' + FONE + '?text=' + encodeURIComponent(oi);
 
   atualizar();

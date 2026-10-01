@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quanto do seu aluguel já podia ser seu? | HCI Consórcios Recife</title>
+<meta name="description" content="Coloque o valor do seu aluguel e veja quanto ele soma com os anos, comparado às cartas de consórcio da HCI, em Recife.">
+<meta property="og:title" content="Quanto do seu aluguel já podia ser seu?">
+<meta property="og:description" content="Faça a conta em 20 segundos e compare com uma carta de consórcio imobiliário. HCI, Recife.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta name="theme-color" content="#2340C8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Geist:wght@400..700&display=swap">
+<style>
+:root{
+  --papel:#F1F2EE;
+  --tinta:#15171C;
+  --cobalto:#2340C8;
+  --cobalto-fundo:#1B33A6;
+  --linha:#D6D9D3;
+  --cinza:#555B64;
+  --branco:#FFFFFF;
+  --raio:14px;
+  --raio-campo:10px;
+  --display:'Bricolage Grotesque', system-ui, sans-serif;
+  --texto:'Geist', system-ui, sans-serif;
+  --borda-lateral:clamp(16px, 4vw, 48px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--texto);font-size:16px;line-height:1.5}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cobalto);outline-offset:3px;border-radius:4px}
+.painel :focus-visible{outline-color:var(--branco)}
+.num{font-variant-numeric:tabular-nums}
+.largura{max-width:1180px;margin:0 auto;padding-left:var(--borda-lateral);padding-right:var(--borda-lateral)}
+h1,h2{font-family:var(--display);font-weight:700;letter-spacing:-0.03em;margin:0}
+h2{font-size:clamp(1.7rem, 3vw, 2.4rem);line-height:1.1}
+p{margin:0}
+
+/* topo */
+.topo{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:20px;padding-bottom:20px}
+.marca{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.marca b{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-0.02em}
+.marca span{font-size:14px;color:var(--cinza)}
+.botao-linha{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1.5px solid var(--tinta);border-radius:999px;text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap}
+.botao-linha:hover{background:var(--tinta);color:var(--branco)}
+
+/* conta */
+.conta{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(28px, 4vw, 56px);padding-top:clamp(12px, 3vw, 40px)}
+.conta-texto{display:flex;flex-direction:column;gap:24px}
+h1{font-size:clamp(2.4rem, 5.2vw, 4.4rem);line-height:1.02;letter-spacing:-0.035em;max-width:13ch}
+.lead{font-size:clamp(1.05rem, 1.6vw, 1.2rem);color:var(--cinza);max-width:44ch}
+.campos{display:flex;flex-direction:column;gap:22px;background:var(--branco);border:1px solid var(--linha);border-radius:var(--raio);padding:clamp(18px, 3vw, 28px)}
+.campo{display:flex;flex-direction:column;gap:8px}
+.campo label,.rotulo{font-weight:600;font-size:15px}
+.moeda{display:flex;align-items:center;gap:10px;border:1.5px solid var(--tinta);border-radius:var(--raio-campo);padding:0 14px;min-height:60px;background:var(--branco)}
+.moeda:focus-within{box-shadow:0 0 0 3px rgba(35,64,200,.25)}
+.moeda span{font-size:22px;color:var(--cinza);font-weight:500}
+.moeda input{flex:1;min-width:0;width:100%;border:0;outline:0;background:transparent;font-family:var(--display);font-weight:700;font-size:30px;color:var(--tinta);padding:8px 0}
+.linha-anos{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.linha-anos output{font-family:var(--display);font-weight:700;font-size:22px}
+input[type=range]{width:100%;height:44px;margin:0;accent-color:var(--cobalto);cursor:pointer}
+.extremos{display:flex;justify-content:space-between;font-size:13px;color:var(--cinza)}
+
+.painel{container-type:inline-size;min-width:0;background:var(--cobalto);color:var(--branco);border-radius:var(--raio);padding:clamp(22px, 3.5vw, 40px);display:flex;flex-direction:column;gap:26px;justify-content:space-between}
+.painel .suave{color:rgba(255,255,255,.86)}
+.total{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem, 12.5cqi, 6rem);line-height:1;letter-spacing:-0.045em;white-space:nowrap;padding:4px 0}
+.frase{margin-top:8px;font-size:clamp(1.05rem, 1.7vw, 1.25rem);font-weight:600;max-width:30ch}
+.trilho{position:relative;height:18px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden}
+.trilho i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--branco);border-radius:999px;transition:width 280ms cubic-bezier(.2,.7,.2,1)}
+.marcas{position:relative;height:40px;font-size:12.5px;color:rgba(255,255,255,.92)}
+.marcas span{position:absolute;top:0;height:34px;display:flex;align-items:flex-end;white-space:nowrap;transform:translateX(-50%);border-left:1.5px solid rgba(255,255,255,.7);padding-left:6px}
+.marcas .curto{display:none}
+.comparar{display:grid;grid-template-columns:1fr 1fr;gap:14px;border-top:1px solid rgba(255,255,255,.3);padding-top:20px}
+.comparar div{display:flex;flex-direction:column;gap:2px}
+.comparar small{font-size:14px;color:rgba(255,255,255,.84)}
+.comparar strong{font-family:var(--display);font-weight:700;font-size:26px}
+.comparar p{grid-column:1/-1;font-size:13px;color:rgba(255,255,255,.84)}
+
+/* cartas */
+.secao{padding-top:clamp(48px, 7vw, 88px)}
+.cabeca{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.cabeca p{font-size:15px;color:var(--cinza);max-width:40ch}
+.cartas{display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr));gap:14px}
+.carta{text-align:left;cursor:pointer;font:inherit;color:var(--tinta);display:flex;flex-direction:column;gap:10px;min-height:150px;padding:22px;border-radius:var(--raio);border:1.5px solid var(--linha);background:var(--branco);transition:background 160ms ease,color 160ms ease,border-color 160ms ease}
+.carta:hover{border-color:var(--tinta)}
+.carta:active{transform:translateY(1px)}
+.carta[aria-pressed=true]{background:var(--cobalto);border-color:var(--cobalto);color:var(--branco)}
+.carta-topo{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.carta-valor{font-family:var(--display);font-weight:800;font-size:32px;letter-spacing:-0.03em}
+.selo{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid currentColor}
+.carta .sub{font-size:15px;color:var(--cinza)}
+.carta[aria-pressed=true] .sub{color:rgba(255,255,255,.85)}
+.carta .parc{font-size:17px;font-weight:600}
+
+/* saber */
+.saber{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(20px, 4vw, 56px);align-items:start}
+.saber-intro{display:flex;flex-direction:column;gap:14px}
+.saber-intro h2{max-width:16ch}
+.saber-intro p{color:var(--cinza);max-width:40ch}
+dl{margin:0;border-top:1.5px solid var(--tinta)}
+dl div{padding:18px 0;border-bottom:1px solid var(--linha)}
+dt{font-weight:700;font-size:18px}
+dd{margin:4px 0 0;color:var(--cinza);max-width:60ch}
+
+/* enviar */
+.enviar{background:var(--branco);border:1px solid var(--linha);border-radius:var(--raio);padding:clamp(22px, 4vw, 48px);display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px, 4vw, 56px)}
+.enviar-form{display:flex;flex-direction:column;gap:22px}
+.enviar-form > div:first-child{display:flex;flex-direction:column;gap:10px}
+.enviar-form > div:first-child p{color:var(--cinza);max-width:46ch}
+.texto-campo{min-height:54px;border:1.5px solid var(--tinta);border-radius:var(--raio-campo);padding:0 14px;font:inherit;font-size:18px;color:var(--tinta);background:var(--branco);width:100%}
+fieldset{margin:0;padding:0;border:0}
+legend{font-weight:600;font-size:15px;padding:0;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{cursor:pointer;font:inherit;font-size:15px;font-weight:600;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--linha);background:var(--branco);color:var(--tinta)}
+.chip:hover{border-color:var(--tinta)}
+.chip[aria-pressed=true]{background:var(--tinta);border-color:var(--tinta);color:var(--branco)}
+.acoes{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.botao{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 28px;border-radius:999px;background:var(--cobalto);color:var(--branco);text-decoration:none;font-weight:700;font-size:17px;white-space:nowrap;transition:background 160ms ease}
+.botao:hover{background:var(--cobalto-fundo)}
+.botao:active{transform:translateY(1px)}
+.nota{font-size:14px;color:var(--cinza);max-width:46ch}
+.previa{display:flex;flex-direction:column;gap:10px}
+.previa p:first-child{font-weight:600;font-size:15px}
+.mensagem{background:var(--papel);border-radius:var(--raio-campo);padding:18px 20px;font-size:16px;line-height:1.6;white-space:pre-line}
+
+/* indicar */
+.indicar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;border-top:1.5px solid var(--tinta);border-bottom:1px solid var(--linha);padding:26px 0}
+.indicar p{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem, 2.2vw, 1.6rem);letter-spacing:-0.02em;max-width:30ch;line-height:1.2}
+
+/* rodape */
+.rodape{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;padding-top:clamp(48px, 7vw, 80px);padding-bottom:40px;font-size:14px;color:var(--cinza)}
+.rodape div{display:flex;flex-direction:column;gap:4px}
+.rodape b{font-family:var(--display);font-weight:800;font-size:20px;color:var(--tinta)}
+.rodape a{color:var(--tinta);font-weight:600;text-decoration:none;min-height:32px;display:inline-flex;align-items:center}
+.assina{grid-column:1/-1;border-top:1px solid var(--linha);padding-top:16px;font-size:12.5px}
+
+@media (max-width:520px){
+  .marcas .longo{display:none}
+  .marcas .curto{display:inline}
+  .comparar strong{font-size:22px}
+  .acoes,.botao{width:100%}
+  .botao{white-space:normal;text-align:center}
+}
+@media (min-width:960px){
+  .conta{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+  .saber{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+  .enviar{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .rodape{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important}
+}
+</style>
+</head>
+<body>
+<div style="background:#15171C;color:#E9EAE6;font:12.5px/1.4 system-ui,sans-serif;text-align:center;padding:8px 16px;">Protótipo · proposta de site para HCI Consórcios · feito por Gabriel Neri · não é o site oficial</div>
+
+<header class="topo largura">
+  <a class="marca" href="https://hciconsorcios.com.br/"><b>HCI</b><span>Hub de Investimentos, Recife</span></a>
+  <a class="botao-linha" id="falar" href="https://wa.me/5581997461550" target="_blank" rel="noopener">Falar com o Janilson</a>
+</header>
+
+<main>
+<section class="conta largura" aria-labelledby="titulo">
+  <div class="conta-texto">
+    <h1 id="titulo">Quanto do seu aluguel já podia ser seu?</h1>
+    <p class="lead">Coloque o valor do aluguel e o tempo. A conta aparece na hora e fica só na sua tela até você decidir mandar.</p>
+    <div class="campos">
+      <div class="campo">
+        <label for="aluguel">Aluguel por mês</label>
+        <div class="moeda"><span>R$</span><input id="aluguel" class="num" type="text" inputmode="numeric" autocomplete="off" value="1.800" placeholder="1.800" aria-describedby="titulo"></div>
+      </div>
+      <div class="campo">
+        <div class="linha-anos"><label for="anos">Por quanto tempo</label><output id="anos-saida" for="anos" class="num">10 anos</output></div>
+        <input id="anos" type="range" min="1" max="30" step="1" value="10">
+        <div class="extremos"><span>1 ano</span><span>30 anos</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="painel">
+    <div>
+      <p class="suave" style="font-size:17px">Em <span id="anos-texto">10 anos</span> de aluguel, você paga</p>
+      <p class="total num" id="total" aria-live="polite">R$ 216.000</p>
+      <p class="frase" id="frase">É 72% de uma carta de R$ 300 mil, e esse dinheiro não volta.</p>
+    </div>
+    <div>
+      <div class="trilho" aria-hidden="true"><i id="barra"></i></div>
+      <div class="marcas num" aria-hidden="true">
+        <span style="left:50%"><b class="longo" style="font-weight:500">R$ 300 mil</b><b class="curto" style="font-weight:500">300 mil</b></span>
+        <span style="left:66.67%"><b class="longo" style="font-weight:500">R$ 400 mil</b><b class="curto" style="font-weight:500">400 mil</b></span>
+        <span style="left:83.33%"><b class="longo" style="font-weight:500">R$ 500 mil</b><b class="curto" style="font-weight:500">500 mil</b></span>
+      </div>
+    </div>
+    <div class="comparar">
+      <div><small>Seu aluguel hoje</small><strong class="num" id="aluguel-mes">R$ 1.800/mês</strong></div>
+      <div><small>Parcela da carta de <span id="carta-nome">R$ 300 mil</span></small><strong class="num" id="parcela-mes">R$ 1.785/mês</strong></div>
+      <p>Parcela em estimativa educativa da HCI: 200 meses, taxa de administração em torno de 19%. O valor oficial depende da administradora e do grupo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="secao largura" aria-labelledby="t-cartas">
+  <div class="cabeca">
+    <h2 id="t-cartas">Compare com a carta que faz sentido</h2>
+    <p>Toque numa carta e o painel acima troca a parcela.</p>
+  </div>
+  <div class="cartas" id="cartas">
+    <button type="button" class="carta" data-carta="300" aria-pressed="true"><span class="carta-topo"><span class="carta-valor num">R$ 300 mil</span></span><span class="sub">200 meses</span><span class="parc num">Parcela est. R$ 1.785/mês</span></button>
+    <button type="button" class="carta" data-carta="400" aria-pressed="false"><span class="carta-topo"><span class="carta-valor num">R$ 400 mil</span><span class="selo">Mais popular</span></span><span class="sub">200 meses</span><span class="parc num">Parcela est. R$ 2.380/mês</span></button>
+    <button type="button" class="carta" data-carta="500" aria-pressed="false"><span class="carta-topo"><span class="carta-valor num">R$ 500 mil</span></span><span class="sub">200 meses</span><span class="parc num">Parcela est. R$ 2.975/mês</span></button>
+  </div>
+</section>
+
+<section class="secao largura saber" aria-labelledby="t-saber">
+  <div class="saber-intro">
+    <h2 id="t-saber">Antes de decidir, o que muda de verdade</h2>
+    <p>A conta de cima mostra o tamanho do aluguel. Estes cinco pontos mostram como o consórcio funciona, sem letra miúda.</p>
+  </div>
+  <dl>
+    <div><dt>O aluguel não para no primeiro mês</dt><dd>Até ser contemplado, você paga aluguel e parcela ao mesmo tempo. Vale olhar o orçamento antes de escolher a carta.</dd></div>
+    <div><dt>Sem juros, com taxa de administração</dt><dd>Não há juros de financiamento. Há uma taxa de administração diluída nas parcelas, em torno de 19% no prazo inteiro na estimativa da HCI.</dd></div>
+    <div><dt>Contemplação por sorteio ou lance</dt><dd>Todo mês o grupo contempla participantes. Um lance pode antecipar a sua vez.</dd></div>
+    <div><dt>Carta com poder de compra à vista</dt><dd>Contemplado, você negocia o imóvel como quem paga à vista, sem precisar de entrada.</dd></div>
+    <div><dt>Regulado pelo Banco Central</dt><dd>Lei 11.795/2008, com administradoras como Porto Bank, Canopus, Magalu, Yamaha e Rodobens.</dd></div>
+  </dl>
+</section>
+
+<section class="secao largura" aria-labelledby="t-enviar">
+  <div class="enviar">
+    <div class="enviar-form">
+      <div>
+        <h2 id="t-enviar">Mande a sua conta para o Janilson</h2>
+        <p>Janilson Gomes é o especialista da HCI em Recife. Ele responde em até 24 horas úteis com as opções para o seu perfil.</p>
+      </div>
+      <div class="campo">
+        <label for="nome">Seu nome</label>
+        <input id="nome" class="texto-campo" type="text" autocomplete="given-name" maxlength="60" placeholder="Como o Janilson deve te chamar">
+      </div>
+      <fieldset>
+        <legend>Quando pensa em comprar?</legend>
+        <div class="chips" id="quando">
+          <button type="button" class="chip" data-quando="este-ano" aria-pressed="false">Ainda este ano</button>
+          <button type="button" class="chip" data-quando="1-2" aria-pressed="false">Em 1 a 2 anos</button>
+          <button type="button" class="chip" data-quando="pesquisando" aria-pressed="false">Só estou pesquisando</button>
+        </div>
+      </fieldset>
+      <div class="acoes">
+        <a class="botao" id="enviar" href="https://wa.me/5581997461550" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
+        <p class="nota">Abre o seu WhatsApp com a mensagem ao lado já escrita. Nada sai antes de você tocar em enviar, e o Janilson recebe o seu número pela própria conversa.</p>
+      </div>
+    </div>
+    <div class="previa">
+      <p>A mensagem que vai</p>
+      <p class="mensagem num" id="mensagem"></p>
+    </div>
+  </div>
+</section>
+
+<section class="secao largura" aria-label="Indicar">
+  <div class="indicar">
+    <p>Conhece alguém que paga aluguel? Mande a calculadora, a conta é dele.</p>
+    <a class="botao-linha" id="indicar" href="https://wa.me/" target="_blank" rel="noopener">Mandar para alguém</a>
+  </div>
+</section>
+</main>
+
+<footer class="rodape largura">
+  <div>
+    <b>HCI Hub de Investimentos</b>
+    <span>Janilson Gomes, Recife, PE</span>
+    <a href="tel:+5581997461550">(81) 99746-1550</a>
+  </div>
+  <div>
+    <span>Consórcio regulamentado pelo Banco Central do Brasil, Lei nº 11.795/2008.</span>
+    <span>As parcelas desta página são estimativas educativas, não proposta oficial.</span>
+  </div>
+  <p class="assina">protótipo feito por Gabriel Neri · não é o site oficial</p>
+</footer>
+
+<script>
+(function(){
+  var FONE = '5581997461550';
+  var CARTAS = { 300: 1785, 400: 2380, 500: 2975 };
+  var QUANDO = {
+    'este-ano': 'Penso em comprar ainda este ano.',
+    '1-2': 'Penso em comprar em 1 a 2 anos.',
+    'pesquisando': 'Por enquanto estou pesquisando.'
+  };
+  var ORIGENS = { story: 'pelo story', bio: 'pelo link da bio', status: 'pelo status do WhatsApp', indicacao: 'por indicação de um amigo', anuncio: 'por um anúncio', site: 'pelo site da HCI' };
+  var estado = { aluguel: 1800, anos: 10, carta: 300, quando: '' };
+
+  var params = new URLSearchParams(location.search);
+  var origem = (params.get('origem') || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 20);
+
+  var $ = function(id){ return document.getElementById(id); };
+  var reais = function(n){ return 'R$ ' + Math.round(n).toLocaleString('pt-BR'); };
+  var anosTexto = function(n){ return n === 1 ? '1 ano' : n + ' anos'; };
+
+  function frase(total){
+    if (estado.aluguel === 0) return 'Digite quanto você paga de aluguel por mês.';
+    if (total >= 500000) return 'Passa do valor da maior carta da HCI, de R$ 500 mil.';
+    if (total >= 400000) return 'Já é mais do que uma carta de R$ 400 mil inteira.';
+    if (total >= 300000) return 'Já é mais do que uma carta de R$ 300 mil inteira.';
+    return 'É ' + Math.round(total / 3000) + '% de uma carta de R$ 300 mil, e esse dinheiro não volta.';
+  }
+
+  function mensagem(total){
+    var nome = $('nome').value.trim();
+    var l = [];
+    l.push('Olá, Janilson.' + (nome ? ' Aqui é ' + nome + '.' : ''));
+    if (estado.aluguel > 0) l.push('Fiz a conta na página da HCI: pago ' + reais(estado.aluguel) + ' de aluguel por mês, o que dá ' + reais(total) + ' em ' + anosTexto(estado.anos) + '.');
+    l.push('Quero entender a carta de R$ ' + estado.carta + ' mil, com parcela estimada de ' + reais(CARTAS[estado.carta]) + ' por mês.');
+    if (estado.quando) l.push(QUANDO[estado.quando]);
+    if (origem) l.push('Cheguei à página ' + (ORIGENS[origem] || 'pelo link "' + origem + '"') + '.');
+    return l.join('\n');
+  }
+
+  function atualizar(){
+    var total = estado.aluguel * 12 * estado.anos;
+    var parc = CARTAS[estado.carta];
+    $('anos-saida').textContent = anosTexto(estado.anos);
+    $('anos-texto').textContent = anosTexto(estado.anos);
+    var totalTexto = reais(total);
+    $('total').textContent = totalTexto;
+    $('total').style.fontSize = 'clamp(2.2rem, ' + (165 / totalTexto.length).toFixed(2) + 'cqi, 6.5rem)';
+    $('frase').textContent = frase(total);
+    $('barra').style.width = Math.min(total / 600000, 1) * 100 + '%';
+    $('aluguel-mes').textContent = reais(estado.aluguel) + '/mês';
+    $('carta-nome').textContent = 'R$ ' + estado.carta + ' mil';
+    $('parcela-mes').textContent = reais(parc) + '/mês';
+    var texto = mensagem(total);
+    $('mensagem').textContent = texto;
+    $('enviar').href = 'https://wa.me/' + FONE + '?text=' + encodeURIComponent(texto);
+  }
+
+  $('aluguel').addEventListener('input', function(e){
+    var dig = e.target.value.replace(/\D/g, '').slice(0, 5);
+    estado.aluguel = parseInt(dig || '0', 10);
+    e.target.value = dig ? estado.aluguel.toLocaleString('pt-BR') : '';
+    atualizar();
+  });
+  $('anos').addEventListener('input', function(e){
+    estado.anos = parseInt(e.target.value, 10) || 1;
+    atualizar();
+  });
+  $('nome').addEventListener('input', atualizar);
+
+  document.querySelectorAll('.carta').forEach(function(b){
+    b.addEventListener('click', function(){
+      estado.carta = parseInt(b.dataset.carta, 10);
+      document.querySelectorAll('.carta').forEach(function(o){ o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+      atualizar();
+    });
+  });
+  document.querySelectorAll('.chip').forEach(function(b){
+    b.addEventListener('click', function(){
+      var ja = estado.quando === b.dataset.quando;
+      estado.quando = ja ? '' : b.dataset.quando;
+      document.querySelectorAll('.chip').forEach(function(o){ o.setAttribute('aria-pressed', !ja && o === b ? 'true' : 'false'); });
+      atualizar();
+    });
+  });
+
+  var base = location.protocol.indexOf('http') === 0 ? location.origin + location.pathname : 'https://gabrielhenriqueneri.github.io/demos/hci-consorcios/';
+  $('indicar').href = 'https://wa.me/?text=' + encodeURIComponent('Fiz a conta de quanto o aluguel soma em alguns anos. Faz a sua, leva 20 segundos: ' + base + '?origem=indicacao');
+  var oi = 'Olá, Janilson. Vim pela página da calculadora de aluguel' + (origem ? ' (' + (ORIGENS[origem] || origem) + ')' : '') + '.';
+  $('falar').href = 'https://wa.me/' + FONE + '?text=' + encodeURIComponent(oi);
+
+  atualizar();
+})();
+</script>
+</body>
+</html>
